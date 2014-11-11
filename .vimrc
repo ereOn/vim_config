@@ -20,7 +20,9 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'bling/vim-airline'
 Plugin 'vim-scripts/darktango.vim'
 Plugin 'baskerville/bubblegum'
-Plugin 'Shougo/unite.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
 
 call vundle#end()
 filetype plugin indent on
@@ -36,9 +38,6 @@ colorscheme bubblegum
 
 " Enable syntax highlighting.
 syntax on
-
-" Reload configuration upon save.
-au BufWritePost $MYVIMRC :source $MYVIMRC
 
 " Enhanced menu completion.
 set wildmenu
@@ -62,26 +61,39 @@ set showmatch
 set colorcolumn=80
 
 " Set the encoding.
-set encoding=utf8
 set termencoding=utf-8
 set fileencodings=utf8
 
 " Show line numbers.
 set number
 
-" Starts GVim maximized.
-if has("gui_running")
-  " GUI is running or is about to start.
-  " Maximize gvim window.
-  set lines=999 columns=999
-endif
-
 " Ignore some files.
 set wildignore=*.swp,*.bak,*.pyc,*.class
 
 " History.
 set history=1000
+" Persistent undo.
+set undofile
 set undolevels=1000
+set undodir=$HOME/vimfiles/undo
+set undoreload=10000
 
-" Map unite.
-noremap <C-p> :Unite file<cr>
+" I want to highlight my searches.
+set hlsearch
+set showmatch
+
+" I want to be able to delete using the backspace key.
+set backspace=indent,start
+
+" I don't want distractions.
+set guioptions=
+
+" Starts GVim maximized.
+if has("gui_running")
+	if has("win32") || has("win16")
+		au GUIEnter * call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)
+		map <F11> <esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<cr>
+	else
+		set lines=999 columns=999
+	endif
+endif
