@@ -23,6 +23,7 @@ Plugin 'baskerville/bubblegum'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'amiorin/vim-project'
 
 call vundle#end()
 filetype plugin indent on
@@ -35,6 +36,11 @@ set laststatus=2
 
 " Set the colorscheme.
 colorscheme bubblegum
+let g:airline_theme='dark'
+
+" Set the font.
+set guifont=Liberation_Mono_for_Powerline:h10
+let g:airline_powerline_fonts=1
 
 " Enable syntax highlighting.
 syntax on
