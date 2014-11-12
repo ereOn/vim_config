@@ -20,10 +20,19 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'bling/vim-airline'
 Plugin 'vim-scripts/darktango.vim'
 Plugin 'baskerville/bubblegum'
+Plugin 'chriskempson/base16-vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'amiorin/vim-project'
+Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'majutsushi/tagbar'
+Plugin 'scrooloose/syntastic'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'hynek/vim-python-pep8-indent'
 
 call vundle#end()
 filetype plugin indent on
@@ -35,12 +44,13 @@ set nobackup
 set laststatus=2
 
 " Set the colorscheme.
-colorscheme bubblegum
-let g:airline_theme='dark'
+colorscheme base16-default
+set background=dark
+let g:airline_theme='base16'
 
 " Set the font.
-set guifont=Liberation_Mono_for_Powerline:h10
-let g:airline_powerline_fonts=1
+"set guifont=Source_Code_Pro_Medium:h9:cANSI
+"let g:airline_powerline_fonts=1
 
 " Enable syntax highlighting.
 syntax on
@@ -103,3 +113,23 @@ if has("gui_running")
 		set lines=999 columns=999
 	endif
 endif
+
+" Map a key to TagBar.
+map <F8> :TagbarOpenAutoClose<cr>
+
+" Disable NERDTree on startup.
+let g:nerdtree_tabs_open_on_gui_startup=0
+
+" Add some mappings to NERDTree.
+map <C-Left> <Plug>NERDTreeSteppedOpen<cr>
+map <C-Right> <Plug>NERDTreeSteppedClose<cr>
+
+" Add some mappings to CtrlP.
+map <C-R> :CtrlPTag<cr>
+
+" UNIX line endings by default.
+set fileformats=unix,dos
+set fileformat=unix
+
+" Syntax errors go into the location list:
+let syntastic_always_populate_loc_list=1
