@@ -133,3 +133,6 @@ set fileformat=unix
 
 " Syntax errors go into the location list:
 let syntastic_always_populate_loc_list=1
+
+" Ignore pyc files and stuff in NERDTree.
+let NERDTreeIgnore = ['\.pyc$']
