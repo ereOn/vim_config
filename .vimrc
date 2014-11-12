@@ -18,21 +18,28 @@ endif
 " Let Vundle manage Vundle, required.
 Plugin 'gmarik/Vundle.vim'
 Plugin 'bling/vim-airline'
+Plugin 'Altercation/vim-colors-solarized'
 Plugin 'vim-scripts/darktango.vim'
 Plugin 'baskerville/bubblegum'
 Plugin 'chriskempson/base16-vim'
 Plugin 'kien/ctrlp.vim'
-Plugin 'tpope/vim-fugitive'
+Plugin 'Tpope/vim-fugitive'
+Plugin 'Tpope/vim-commentary'
+Plugin 'Tpope/vim-surround'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'amiorin/vim-project'
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/syntastic'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'hynek/vim-python-pep8-indent'
+Plugin 'Derekwyatt/vim-fswitch'
+Plugin 'Hdima/python-syntax'
+Plugin 'Manuel-colmenero/vim-simple-session'
+Plugin 'Michaeljsmith/vim-indent-object'
+Plugin 'Ntpeters/vim-better-whitespace'
+Plugin 'Sjl/gundo.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -49,8 +56,9 @@ set background=dark
 let g:airline_theme='base16'
 
 " Set the font.
-"set guifont=Source_Code_Pro_Medium:h9:cANSI
-"let g:airline_powerline_fonts=1
+set guifont=Anonymice_Powerline:h13
+set antialias
+let g:airline_powerline_fonts=0
 
 " Enable syntax highlighting.
 syntax on
@@ -114,25 +122,42 @@ if has("gui_running")
 	endif
 endif
 
-" Map a key to TagBar.
-map <F8> :TagbarOpenAutoClose<cr>
+" Map keys to TagBar.
+map <C-Left> :TagbarClose<cr>
+map <C-Right> :TagbarOpenAutoClose<cr>
 
-" Disable NERDTree on startup.
-let g:nerdtree_tabs_open_on_gui_startup=0
+" Folds by default.
+set foldlevelstart=1
+set foldopen=block,insert,mark,percent,quickfix,search,tag,undo
 
-" Add some mappings to NERDTree.
-map <C-Left> <Plug>NERDTreeSteppedOpen<cr>
-map <C-Right> <Plug>NERDTreeSteppedClose<cr>
-
-" Add some mappings to CtrlP.
+" CtrlP settings.
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_root_markers = ['.git']
+let g:ctrlp_extensions = ['tag', 'buffertag', 'session']
+let g:ctrlp_custom_ignore = {
+  \ 'dir': '\v(\.git)$',
+  \ 'file': '\v(\.exe|\.so|\.dll|\.pdb|\.sln|\.suo|tags|\.vcproj|\.txt|\.jpg|\.jpeg|\.gif|\.png|\.bpt|\.tlog|\.pdf|\.pyc)$',
+  \ 'link': '',
+  \ }
+let g:ctrlp_max_height = 20
+" No limits on files
+let g:ctrlp_max_files = 0
+" Unlimited depth
+let g:ctrlp_max_depth = 100
 map <C-R> :CtrlPTag<cr>
 
 " UNIX line endings by default.
-set fileformats=unix,dos
+set fileformats=unix
 set fileformat=unix
 
-" Syntax errors go into the location list:
-let syntastic_always_populate_loc_list=1
+" Syntastic.
+let g:syntastic_check_on_open=1
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_jump=0
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_flake8_args='--ignore=E501,E124,E265'
+let g:syntastic_haskell_ghc_mod_args='-g -fno-warn-type-defaults'
 
-" Ignore pyc files and stuff in NERDTree.
-let NERDTreeIgnore = ['\.pyc$']
+" Projects definitions.
+"call project#rc()
+"Project 'C:\Users\jkauffmann\Development\vim_config'
