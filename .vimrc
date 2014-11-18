@@ -40,6 +40,7 @@ Plugin 'Manuel-colmenero/vim-simple-session'
 Plugin 'Michaeljsmith/vim-indent-object'
 Plugin 'Ntpeters/vim-better-whitespace'
 Plugin 'Sjl/gundo.vim'
+Plugin 'AndrewRadev/splitjoin.vim'
 
 call vundle#end()
 filetype plugin indent on
