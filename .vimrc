@@ -27,9 +27,9 @@ Plugin 'Tpope/vim-fugitive'
 Plugin 'Tpope/vim-commentary'
 Plugin 'Tpope/vim-surround'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'amiorin/vim-project'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/syntastic'
+Plugin 'xolox/vim-shell'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'davidhalter/jedi-vim'
@@ -116,10 +116,8 @@ set guioptions=
 " Starts GVim maximized.
 if has("gui_running")
 	if has("win32") || has("win16")
-		au GUIEnter * call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)
-		map <F11> <esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<cr>
+		au GUIEnter * Fullscreen
 	else
-		set lines=999 columns=999
 	endif
 endif
 
@@ -159,6 +157,8 @@ let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_python_flake8_args='--ignore=E501,E124,E265'
 let g:syntastic_haskell_ghc_mod_args='-g -fno-warn-type-defaults'
 
-" Projects definitions.
-"call project#rc()
-"Project 'C:\Users\jkauffmann\Development\vim_config'
+" Tell easytags to operate in the background.
+let g:easytags_async=1
+
+" Remove fullscreen notice on startup.
+:let g:shell_fullscreen_message=0
