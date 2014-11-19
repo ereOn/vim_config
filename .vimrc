@@ -6,6 +6,9 @@
 set nocompatible
 filetype off
 
+" Set the leader to ","
+let mapleader=","
+
 " Set the runtime path to include Vundle and initialize.
 if has("win32") || has("win16")
 	set rtp+=~/vimfiles/bundle/Vundle.vim/
@@ -160,5 +163,16 @@ let g:syntastic_haskell_ghc_mod_args='-g -fno-warn-type-defaults'
 " Tell easytags to operate in the background.
 let g:easytags_async=1
 
+" Configure tags per project.
+set tags=./tags
+let g:easytags_dynamic_files=2
+
 " Remove fullscreen notice on startup.
-:let g:shell_fullscreen_message=0
+let g:shell_fullscreen_message=0
+let g:shell_fullscreen_always_on_top=0
+
+" Disable the help preview for Python files.
+autocmd FileType python setlocal completeopt-=preview
+
+" Disable saving some things into the sessions.
+set sessionoptions-=options,winpos
