@@ -141,15 +141,16 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v(\.exe|\.so|\.dll|\.pdb|\.sln|\.suo|tags|\.vcproj|\.txt|\.jpg|\.jpeg|\.gif|\.png|\.bpt|\.tlog|\.pdf|\.pyc)$',
   \ 'link': '',
   \ }
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 let g:ctrlp_max_height = 20
 " No limits on files
 let g:ctrlp_max_files = 0
 " Unlimited depth
 let g:ctrlp_max_depth = 100
-map <C-R> :CtrlPTag<cr>
+map <C-O> :CtrlPBufTagAll<cr>
 
 " UNIX line endings by default.
-set fileformats=unix
+set fileformats=unix,dos
 set fileformat=unix
 
 " Syntastic.
@@ -162,9 +163,11 @@ let g:syntastic_haskell_ghc_mod_args='-g -fno-warn-type-defaults'
 
 " Tell easytags to operate in the background.
 let g:easytags_async=1
+let g:easytags_events = ['BufWritePost']
 
 " Configure tags per project.
-set tags=./tags
+au BufRead * exec "setlocal tags=../".fnamemodify(substitute(system("cd ".expand("%:h")." & git rev-parse --show-toplevel"), '\n$', '', ''), ":t").".tags"
+au BufRead * exec ":UpdateTags -R ".substitute(system("cd ".expand("%:h")." & git rev-parse --show-toplevel"), '\n$', '', '')
 let g:easytags_dynamic_files=2
 
 " Remove fullscreen notice on startup.
