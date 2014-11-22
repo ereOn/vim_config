@@ -166,11 +166,18 @@ let g:easytags_events = ['BufWritePost']
 " Configure tags per project.
 let g:easytags_dynamic_files=2
 
+function! b:generate_repo_tags()
+	let l:repo = fugitive#repo()
+	let l:repo_files = split(system(l:repo.git_command('ls-files', '-oc', '--exclude-standard'), '[^\r\n]*'), '\n')
+	call xolox#easytags#update(0, 0, l:repo_files)
+endfunction
+
 function! g:set_tags_file()
 	try
 		let l:repo = fugitive#repo()
 		let l:root_dir = fnamemodify(l:repo.git_dir, ":h")
 		let l:tags_file = l:root_dir.".tags"
+		command! -b GenerateTags call b:generate_repo_tags()
 	catch
 		if has("win32") || has("win16")
 			let l:tags_file = "~/_vimtags"
@@ -179,23 +186,12 @@ function! g:set_tags_file()
 		endif
 	endtry
 
-	echo 'Setting local tags to: '.l:tags_file
 	execute ':setlocal tags='.l:tags_file
-endfunction
-
-function! g:update_tags()
-	try
-		let l:repo = fugitive#repo()
-		execute ':UpdateTags -R '.fnamemodify(l:repo.git_dir, ":h")
-	catch
-		execute ':UpdateTags'
-	endtry
 endfunction
 
 augroup settags
 	au!
-	au BufEnter * :call g:set_tags_file()
-	au BufEnter * :call g:update_tags()
+	au BufEnter,BufRead * :call g:set_tags_file()
 augroup end
 
 " Remove fullscreen notice on startup.
