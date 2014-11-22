@@ -137,9 +137,7 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_root_markers = ['.git']
 let g:ctrlp_extensions = ['tag', 'buffertag', 'session']
 let g:ctrlp_custom_ignore = {
-  \ 'dir': '\v(\.git)$',
   \ 'file': '\v(\.exe|\.so|\.dll|\.pdb|\.sln|\.suo|tags|\.vcproj|\.txt|\.jpg|\.jpeg|\.gif|\.png|\.bpt|\.tlog|\.pdf|\.pyc)$',
-  \ 'link': '',
   \ }
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 let g:ctrlp_max_height = 20
@@ -166,9 +164,39 @@ let g:easytags_async=1
 let g:easytags_events = ['BufWritePost']
 
 " Configure tags per project.
-au BufRead * exec "setlocal tags=../".fnamemodify(substitute(system("cd ".expand("%:h")." & git rev-parse --show-toplevel"), '\n$', '', ''), ":t").".tags"
-au BufRead * exec ":UpdateTags -R ".substitute(system("cd ".expand("%:h")." & git rev-parse --show-toplevel"), '\n$', '', '')
 let g:easytags_dynamic_files=2
+
+function! g:set_tags_file()
+	try
+		let l:repo = fugitive#repo()
+		let l:root_dir = fnamemodify(l:repo.git_dir, ":h")
+		let l:tags_file = l:root_dir.".tags"
+	catch
+		if has("win32") || has("win16")
+			let l:tags_file = "~/_vimtags"
+		else
+			let l:tags_file = "~/.vimtags"
+		endif
+	endtry
+
+	echo 'Setting local tags to: '.l:tags_file
+	execute ':setlocal tags='.l:tags_file
+endfunction
+
+function! g:update_tags()
+	try
+		let l:repo = fugitive#repo()
+		execute ':UpdateTags -R '.fnamemodify(l:repo.git_dir, ":h")
+	catch
+		execute ':UpdateTags'
+	endtry
+endfunction
+
+augroup settags
+	au!
+	au BufEnter * :call g:set_tags_file()
+	au BufEnter * :call g:update_tags()
+augroup end
 
 " Remove fullscreen notice on startup.
 let g:shell_fullscreen_message=0
@@ -178,4 +206,4 @@ let g:shell_fullscreen_always_on_top=0
 autocmd FileType python setlocal completeopt-=preview
 
 " Disable saving some things into the sessions.
-set sessionoptions-=options,winpos
+set sessionoptions-=options,winpos,blank
