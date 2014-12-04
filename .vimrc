@@ -20,34 +20,77 @@ endif
 
 " Let Vundle manage Vundle, required.
 Plugin 'gmarik/Vundle.vim'
+
+" For a nice statusbar
 Plugin 'bling/vim-airline'
+
+" Some themes
 Plugin 'Altercation/vim-colors-solarized'
 Plugin 'vim-scripts/darktango.vim'
 Plugin 'baskerville/bubblegum'
 Plugin 'chriskempson/base16-vim'
+
+" FuzzySearch
 Plugin 'kien/ctrlp.vim'
+
+" Git integration
 Plugin 'Tpope/vim-fugitive'
-Plugin 'Tpope/vim-commentary'
-Plugin 'Tpope/vim-surround'
 Plugin 'airblade/vim-gitgutter'
+
+" Easy commenting with 'gc'.
+Plugin 'Tpope/vim-commentary'
+
+" Easy surrounding change with 'cs'.
+Plugin 'Tpope/vim-surround'
+
+" Execute tasks in background.
+Plugin 'Tpope/vim-dispatch'
+
+" Nosetests integration.
+Plugin 'okcompute/vim-nose'
+
+" Tags bar.
 Plugin 'majutsushi/tagbar'
+
+" Syntax linters.
 Plugin 'scrooloose/syntastic'
-Plugin 'xolox/vim-shell'
+
+" Need by xolox's plugins.
 Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
-Plugin 'davidhalter/jedi-vim'
+
+" Enable fullscreen, maximize.
+Plugin 'xolox/vim-shell'
+
+" Update tags by deleting entries.
+Plugin 'vim-scripts/AutoTag'
+
+" Python pep8 syntax.
 Plugin 'hynek/vim-python-pep8-indent'
-Plugin 'Derekwyatt/vim-fswitch'
 Plugin 'Hdima/python-syntax'
+
+" Better completion.
+Plugin 'vim-scripts/ucompleteme'
+
+" Better session management.
 Plugin 'Manuel-colmenero/vim-simple-session'
+
+" Add a motion "ii" to select lines that have the same indentation level.
 Plugin 'Michaeljsmith/vim-indent-object'
+
+" Whitespace/trailing whitespaces handling.
 Plugin 'Ntpeters/vim-better-whitespace'
+
+" Undo history and branching.
 Plugin 'Sjl/gundo.vim'
+
+" Use "gS" to split a one-liner; use "gJ" to join several lines.
 Plugin 'AndrewRadev/splitjoin.vim'
 
 call vundle#end()
 filetype plugin indent on
 
+" Set the leader key to ,.
+let mapleader=","
 " Disable backups.
 set nobackup
 
@@ -69,6 +112,7 @@ syntax on
 
 " Enhanced menu completion.
 set wildmenu
+call ucompleteme#Setup()
 
 " Add a ruler.
 set ruler
@@ -85,8 +129,8 @@ set showmatch
 "set cursorcolumn
 "set cursorline
 
-" Color the 80th column.
-set colorcolumn=80
+" Color the 80th column for Python.
+autocmd FileType python set colorcolumn=80
 
 " Set the encoding.
 set termencoding=utf-8
@@ -100,6 +144,7 @@ set wildignore=*.swp,*.bak,*.pyc,*.class
 
 " History.
 set history=1000
+
 " Persistent undo.
 set undofile
 set undolevels=1000
@@ -137,14 +182,20 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_root_markers = ['.git']
 let g:ctrlp_extensions = ['tag', 'buffertag', 'session']
 let g:ctrlp_custom_ignore = {
-  \ 'file': '\v(\.exe|\.so|\.dll|\.pdb|\.sln|\.suo|tags|\.vcproj|\.txt|\.jpg|\.jpeg|\.gif|\.png|\.bpt|\.tlog|\.pdf|\.pyc)$',
-  \ }
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+	\ 'file': '\v(\.exe|\.so|\.dll|\.pdb|\.sln|\.suo|tags|\.vcproj|\.txt|\.jpg|\.jpeg|\.gif|\.png|\.bpt|\.tlog|\.pdf|\.pyc)$',
+\ }
+let g:ctrlp_user_command = {
+	\ 'types': {
+		\ 1: ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard'],
+	\ }
+\ }
 let g:ctrlp_max_height = 20
 " No limits on files
 let g:ctrlp_max_files = 0
 " Unlimited depth
 let g:ctrlp_max_depth = 100
+
+" See all tags with Ctrl-O.
 map <C-O> :CtrlPBufTagAll<cr>
 
 " UNIX line endings by default.
@@ -189,17 +240,21 @@ function! g:set_tags_file()
 	execute ':setlocal tags='.l:tags_file
 endfunction
 
-augroup settags
-	au!
-	au BufEnter,BufRead * :call g:set_tags_file()
-augroup end
+" augroup settags
+" 	au!
+" 	au BufEnter,BufRead * :call g:set_tags_file()
+" augroup end
 
 " Remove fullscreen notice on startup.
 let g:shell_fullscreen_message=0
 let g:shell_fullscreen_always_on_top=0
 
-" Disable the help preview for Python files.
-autocmd FileType python setlocal completeopt-=preview
-
 " Disable saving some things into the sessions.
-set sessionoptions-=options,winpos,blank
+set sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize
+
+" Fold Python files upon opening.
+augroup pythonfolding
+	au!
+	autocmd FileType python setlocal foldmethod=syntax
+	autocmd FileType python setlocal foldtext=substitute(getline(v:foldstart),'\\t','\ \ \ \ ','g')
+augroup end
