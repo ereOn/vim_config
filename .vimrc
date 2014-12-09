@@ -112,6 +112,7 @@ syntax on
 
 " Enhanced menu completion.
 set wildmenu
+let g:ucompleteme_map_tab=0
 call ucompleteme#Setup()
 
 " Add a ruler.
