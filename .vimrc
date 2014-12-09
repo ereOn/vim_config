@@ -91,8 +91,35 @@ filetype plugin indent on
 
 " Set the leader key to ,.
 let mapleader=","
-" Disable backups.
-set nobackup
+
+if has("unix")
+    set backupdir^=/tmp
+    set directory^=/tmp//,.
+    set undodir^=~/.vim/undo,/tmp//,.
+elseif has('win32') || has ('win64')
+    let s:temp_vim_dir = $TEMP . "/vim"
+    if finddir(s:temp_vim_dir, &rtp) ==# ''
+        call mkdir(s:temp_vim_dir)
+    endif
+
+    let s:backup_dir = $TEMP . "/vim/backup"
+    if finddir(s:backup_dir, &rtp) ==# ''
+        call mkdir(s:backup_dir)
+    endif
+    execute "set backupdir^=".s:backup_dir."//"
+
+    let s:undo_dir = $HOME . "/vimfiles/undo"
+    if finddir(s:undo_dir, &rtp) ==# ''
+        call mkdir(s:undo_dir)
+    endif
+    execute "set undodir^=".s:undo_dir."//"
+
+    let s:swap_dir = $TEMP . "/vim/swap"
+    if finddir(s:swap_dir, &rtp) ==# ''
+        call mkdir(s:swap_dir)
+    endif
+    execute "set directory^=".s:swap_dir."//"
+endif
 
 " Always display the statusbar.
 set laststatus=2
@@ -149,7 +176,6 @@ set history=1000
 " Persistent undo.
 set undofile
 set undolevels=1000
-set undodir=$HOME/vimfiles/undo
 set undoreload=10000
 
 " I want to highlight my searches.
