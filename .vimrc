@@ -68,6 +68,9 @@ Plugin 'vim-scripts/AutoTag'
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'Hdima/python-syntax'
 
+" C++11 syntax
+Plugin 'vim-scripts/Cpp11-Syntax-Support'
+
 " Better completion.
 Plugin 'vim-scripts/ucompleteme'
 
@@ -159,6 +162,10 @@ set showmatch
 
 " Color the 80th column for Python.
 autocmd FileType python set colorcolumn=80
+
+" Syntax for C++
+autocmd FileType c,cpp,cpp11 set tabstop=4
+autocmd FileType c,cpp,cpp11 set shiftwidth=4
 
 " Set the encoding.
 set termencoding=utf-8
