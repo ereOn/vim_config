@@ -251,28 +251,28 @@ let g:easytags_events = ['BufWritePost']
 " Configure tags per project.
 let g:easytags_dynamic_files=2
 
-function! b:generate_repo_tags()
-	let l:repo = fugitive#repo()
-	let l:repo_files = split(system(l:repo.git_command('ls-files', '-oc', '--exclude-standard'), '[^\r\n]*'), '\n')
-	call xolox#easytags#update(0, 0, l:repo_files)
-endfunction
+" function! s:generate_repo_tags()
+" 	let l:repo = fugitive#repo()
+" 	let l:repo_files = split(system(l:repo.git_command('ls-files', '-oc', '--exclude-standard'), '[^\r\n]*'), '\n')
+" 	call xolox#easytags#update(0, 0, l:repo_files)
+" endfunction
 
-function! g:set_tags_file()
-	try
-		let l:repo = fugitive#repo()
-		let l:root_dir = fnamemodify(l:repo.git_dir, ":h")
-		let l:tags_file = l:root_dir.".tags"
-		command! -b GenerateTags call b:generate_repo_tags()
-	catch
-		if has("win32") || has("win16")
-			let l:tags_file = "~/_vimtags"
-		else
-			let l:tags_file = "~/.vimtags"
-		endif
-	endtry
+" function! g:set_tags_file()
+" 	try
+" 		let l:repo = fugitive#repo()
+" 		let l:root_dir = fnamemodify(l:repo.git_dir, ":h")
+" 		let l:tags_file = l:root_dir.".tags"
+" 		command! -b GenerateTags call s:generate_repo_tags()
+" 	catch
+" 		if has("win32") || has("win16")
+" 			let l:tags_file = "~/_vimtags"
+" 		else
+" 			let l:tags_file = "~/.vimtags"
+" 		endif
+" 	endtry
 
-	execute ':setlocal tags='.l:tags_file
-endfunction
+" 	execute ':setlocal tags='.l:tags_file
+" endfunction
 
 " augroup settags
 " 	au!
