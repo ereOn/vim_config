@@ -289,6 +289,6 @@ set sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize
 " Fold Python files upon opening.
 augroup pythonfolding
 	au!
-	autocmd FileType python setlocal foldmethod=syntax
+	autocmd FileType python setlocal foldmethod=indent
 	autocmd FileType python setlocal foldtext=substitute(getline(v:foldstart),'\\t','\ \ \ \ ','g')
 augroup end
