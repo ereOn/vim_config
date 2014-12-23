@@ -194,6 +194,7 @@ set backspace=indent,start
 
 " I don't want distractions.
 set guioptions=
+set showtabline=2
 
 " Starts GVim maximized.
 if has("gui_running")
