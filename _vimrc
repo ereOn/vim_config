@@ -212,6 +212,9 @@ map <C-Right> :TagbarOpenAutoClose<cr>
 set foldlevelstart=1
 set foldopen=block,insert,mark,percent,quickfix,search,tag,undo
 
+" Make 5 lines visible around the current cursor position.
+set scrolloff=10
+
 " CtrlP settings.
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_root_markers = ['.git']
