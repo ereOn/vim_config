@@ -160,12 +160,20 @@ set showmatch
 "set cursorcolumn
 "set cursorline
 
-" Color the 80th column for Python.
-autocmd FileType python set colorcolumn=80
-
 " Syntax for C++
-autocmd FileType c,cpp,cpp11 set tabstop=4
-autocmd FileType c,cpp,cpp11 set shiftwidth=4
+augroup cppsyntax
+	au!
+	autocmd FileType c,cpp,cpp11 set tabstop=4
+	autocmd FileType c,cpp,cpp11 set shiftwidth=4
+augroup end
+
+" Syntax for cmake files
+augroup cmakesyntax
+	au!
+	autocmd FileType cmake set tabstop=4
+	autocmd FileType cmake set shiftwidth=4
+	autocmd FileType cmake set expandtab
+augroup end
 
 " Set the encoding.
 set termencoding=utf-8
@@ -199,7 +207,7 @@ set showtabline=2
 " Starts GVim maximized.
 if has("gui_running")
 	if has("win32") || has("win16")
-		au GUIEnter * Fullscreen
+		au GUIEnter * simalt ~n
 	else
 	endif
 endif
@@ -291,8 +299,9 @@ let g:shell_fullscreen_always_on_top=0
 set sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize
 
 " Fold Python files upon opening.
-augroup pythonfolding
+augroup pythonsyntax
 	au!
+	autocmd FileType python set colorcolumn=80
 	autocmd FileType python setlocal foldmethod=indent
 	autocmd FileType python setlocal foldtext=substitute(getline(v:foldstart),'\\t','\ \ \ \ ','g')
 augroup end
