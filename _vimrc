@@ -87,7 +87,7 @@ Plugin 'Ntpeters/vim-better-whitespace'
 Plugin 'Sjl/gundo.vim'
 
 " Use "gS" to split a one-liner; use "gJ" to join several lines.
-Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'ereOn/splitjoin.vim'
 
 " Auto-generate Python docstrings with <C-L> or :Pydocstring.
 Plugin 'heavenshell/vim-pydocstring'
