@@ -175,6 +175,14 @@ augroup cmakesyntax
 	autocmd FileType cmake set expandtab
 augroup end
 
+" Syntax for rST files
+augroup rstsyntax
+	au!
+	autocmd FileType rst set tabstop=3
+	autocmd FileType rst set shiftwidth=3
+	autocmd FileType rst set expandtab
+augroup end
+
 " Set the encoding.
 set termencoding=utf-8
 set fileencodings=utf8
