@@ -186,6 +186,14 @@ augroup rstsyntax
 	autocmd FileType rst set expandtab
 augroup end
 
+" Syntax for yaml files
+augroup yamlsyntax
+	au!
+	autocmd FileType yaml set tabstop=4
+	autocmd FileType yaml set shiftwidth=4
+	autocmd FileType yaml set expandtab
+augroup end
+
 " Set the encoding.
 set termencoding=utf-8
 set fileencodings=utf8
