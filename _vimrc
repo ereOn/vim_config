@@ -189,8 +189,8 @@ augroup end
 " Syntax for yaml files
 augroup yamlsyntax
 	au!
-	autocmd FileType yaml set tabstop=4
-	autocmd FileType yaml set shiftwidth=4
+	autocmd FileType yaml set tabstop=2
+	autocmd FileType yaml set shiftwidth=2
 	autocmd FileType yaml set expandtab
 augroup end
 
