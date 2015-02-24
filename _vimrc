@@ -194,6 +194,14 @@ augroup yamlsyntax
 	autocmd FileType yaml set expandtab
 augroup end
 
+" Syntax for LUA files
+augroup luasyntax
+	au!
+	autocmd FileType lua set tabstop=4
+	autocmd FileType lua set shiftwidth=4
+	autocmd FileType lua set expandtab
+augroup end
+
 " Set the encoding.
 set termencoding=utf-8
 set fileencodings=utf8
