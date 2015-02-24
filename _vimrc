@@ -271,6 +271,9 @@ let g:ctrlp_max_depth = 100
 " See all tags with Ctrl-O.
 map <C-O> :CtrlPBufTagAll<cr>
 
+" See all sessions with Ctrl-S.
+map <C-S> :CtrlPSession<cr>
+
 " UNIX line endings by default.
 set fileformats=unix,dos
 set fileformat=unix
