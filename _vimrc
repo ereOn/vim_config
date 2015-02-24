@@ -74,8 +74,8 @@ Plugin 'vim-scripts/Cpp11-Syntax-Support'
 " Better completion.
 Plugin 'vim-scripts/ucompleteme'
 
-" Better session management.
-Plugin 'Manuel-colmenero/vim-simple-session'
+" Integrate sessions in CtrlP
+Plugin 'okcompute/vim-ctrlp-session'
 
 " Add a motion "ii" to select lines that have the same indentation level.
 Plugin 'Michaeljsmith/vim-indent-object'
