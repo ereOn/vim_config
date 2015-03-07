@@ -136,9 +136,13 @@ set background=dark
 let g:airline_theme='base16'
 
 " Set the font.
-set guifont=Anonymice_Powerline:h13
-set antialias
-let g:airline_powerline_fonts=0
+if has("gui_running")
+	if has("win32") || has("win16")
+		set guifont=Anonymice_Powerline:h13
+		set antialias
+		let g:airline_powerline_fonts=0
+	endif
+endif
 
 " Enable syntax highlighting.
 syntax on
