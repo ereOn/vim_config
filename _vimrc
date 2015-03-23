@@ -167,6 +167,12 @@ set showmatch
 "set cursorcolumn
 "set cursorline
 
+" Recognize SConscript and SConstruct files as Python.
+augroup sconsfiletypes
+	au!
+	autocmd BufRead,BufNewFile SConscript setfiletype python
+	autocmd BufRead,BufNewFile SConstruct setfiletype python
+augroup end
 " Syntax for C++
 augroup cppsyntax
 	au!
