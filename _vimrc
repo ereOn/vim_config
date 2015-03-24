@@ -92,6 +92,9 @@ Plugin 'ereOn/splitjoin.vim'
 " Auto-generate Python docstrings with <C-L> or :Pydocstring.
 Plugin 'heavenshell/vim-pydocstring'
 
+" Multiple cursors (à-la SublimeText) with <C-n>/<C-p>.
+Plugin 'terryma/vim-multiple-cursors'
+
 call vundle#end()
 filetype plugin indent on
 
