@@ -298,6 +298,7 @@ let g:syntastic_auto_jump=0
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_python_flake8_args='--ignore=E501,E124,E265'
 let g:syntastic_haskell_ghc_mod_args='-g -fno-warn-type-defaults'
+let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
 " Tell easytags to operate in the background.
 let g:easytags_async=1
