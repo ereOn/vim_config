@@ -95,6 +95,9 @@ Plugin 'heavenshell/vim-pydocstring'
 " Multiple cursors (à-la SublimeText) with <C-n>/<C-p>.
 Plugin 'terryma/vim-multiple-cursors'
 
+" Objective-C support.
+Plugin 'b4winckler/vim-objc'
+
 call vundle#end()
 filetype plugin indent on
 
@@ -176,6 +179,13 @@ augroup sconsfiletypes
 	autocmd BufRead,BufNewFile SConscript setfiletype python
 	autocmd BufRead,BufNewFile SConstruct setfiletype python
 augroup end
+
+" Objective-C files.
+augroup sconsfiletypes
+	au!
+	autocmd BufRead,BufNewFile *.m setfiletype objc
+augroup end
+
 " Syntax for C++
 augroup cppsyntax
 	au!
