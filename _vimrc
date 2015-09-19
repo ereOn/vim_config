@@ -47,7 +47,7 @@ Plugin 'Tpope/vim-surround'
 Plugin 'Tpope/vim-dispatch'
 
 " Nosetests integration.
-Plugin 'okcompute/vim-nose'
+Plugin 'okcompute/vim-runners'
 
 " Tags bar.
 Plugin 'majutsushi/tagbar'
