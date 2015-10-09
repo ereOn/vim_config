@@ -98,6 +98,9 @@ Plugin 'terryma/vim-multiple-cursors'
 " Objective-C support.
 Plugin 'b4winckler/vim-objc'
 
+" Python text objects
+Plugin 'okcompute/vim-python-text-objects'
+
 call vundle#end()
 filetype plugin indent on
 
