@@ -197,6 +197,7 @@ augroup cppsyntax
 	au!
 	autocmd FileType c,cpp,cpp11 set tabstop=4
 	autocmd FileType c,cpp,cpp11 set shiftwidth=4
+	autocmd FileType c,cpp,cpp11 set expandtab
 augroup end
 
 " Syntax for cmake files
