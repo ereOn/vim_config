@@ -101,6 +101,9 @@ Plugin 'b4winckler/vim-objc'
 " Python text objects
 Plugin 'okcompute/vim-python-text-objects'
 
+" Clang Format
+Plugin 'rhysd/vim-clang-format'
+
 call vundle#end()
 filetype plugin indent on
 
