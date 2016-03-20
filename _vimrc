@@ -232,6 +232,22 @@ augroup luasyntax
 	autocmd FileType lua set expandtab
 augroup end
 
+" Syntax for HTML files
+augroup htmlsyntax
+	au!
+	autocmd FileType html set tabstop=2
+	autocmd FileType html set shiftwidth=2
+	autocmd FileType html set expandtab
+augroup end
+
+" Syntax for Javascript files
+augroup javascriptsyntax
+	au!
+	autocmd FileType javascript set tabstop=2
+	autocmd FileType javascript set shiftwidth=2
+	autocmd FileType javascript set expandtab
+augroup end
+
 " Set the encoding.
 set termencoding=utf-8
 set fileencodings=utf8
