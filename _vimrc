@@ -21,8 +21,11 @@ endif
 " Let Vundle manage Vundle, required.
 Plugin 'gmarik/Vundle.vim'
 
+" The Vim airline themes.
+Plugin 'vim-airline/vim-airline-themes'
+
 " For a nice statusbar
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
 
 " Some themes
 Plugin 'Altercation/vim-colors-solarized'
