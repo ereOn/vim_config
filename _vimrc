@@ -22,7 +22,8 @@ endif
 Plugin 'gmarik/Vundle.vim'
 
 " For a nice statusbar
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " Some themes
 Plugin 'Altercation/vim-colors-solarized'
@@ -143,7 +144,7 @@ endif
 set laststatus=2
 
 " Set the colorscheme.
-colorscheme base16-default
+colorscheme base16-default-dark
 set background=dark
 let g:airline_theme='base16'
 
