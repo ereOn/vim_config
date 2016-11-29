@@ -357,6 +357,12 @@ au FileType go nmap <Leader>gd <Plug>(go-doc)
 au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
 
+augroup gosyntax
+	au!
+	autocmd FileType go set shiftwidth=4
+	autocmd FileType go set tabstop=4
+augroup end
+
 " Tell easytags to operate in the background.
 let g:easytags_async=1
 let g:easytags_events = ['BufWritePost']
