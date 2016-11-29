@@ -105,6 +105,9 @@ Plugin 'okcompute/vim-python-text-objects'
 " Clang Format
 Plugin 'rhysd/vim-clang-format'
 
+" Go
+Plugin 'fatih/vim-go'
+
 call vundle#end()
 filetype plugin indent on
 
@@ -333,6 +336,8 @@ let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_python_flake8_args='--ignore=E501,E124,E265'
 let g:syntastic_haskell_ghc_mod_args='-g -fno-warn-type-defaults'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
 " Tell easytags to operate in the background.
 let g:easytags_async=1
