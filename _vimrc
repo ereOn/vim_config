@@ -32,7 +32,7 @@ Plugin 'baskerville/bubblegum'
 Plugin 'chriskempson/base16-vim'
 
 " FuzzySearch
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 
 " Git integration
 Plugin 'Tpope/vim-fugitive'
