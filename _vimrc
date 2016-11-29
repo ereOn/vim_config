@@ -377,7 +377,12 @@ augroup gosyntax
     au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
     au FileType go nmap <Leader>gi <Plug>(go-import)
     au FileType go nmap <Leader>gr <Plug>(go-rename)
+    au FileType go nmap <c-I> :GoDecls<cr>
     au FileType go nmap <c-O> :GoDeclsDir<cr>
+
+    " Close quickfix and jump back to previous buffer. Useful after running
+    " the tests.
+    au FileType go nmap <c-Y> :ccl<cr>:bd<cr>
 
 augroup end
 
