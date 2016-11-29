@@ -378,6 +378,9 @@ augroup gosyntax
 	autocmd FileType go set tabstop=4
 augroup end
 
+" Manage Go imports upon save and format.
+let g:go_fmt_command = "goimports"
+
 " Tell easytags to operate in the background.
 let g:easytags_async=1
 let g:easytags_events = ['BufWritePost']
