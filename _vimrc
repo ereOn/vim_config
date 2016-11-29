@@ -108,6 +108,9 @@ Plugin 'rhysd/vim-clang-format'
 " Go
 Plugin 'fatih/vim-go'
 
+" Neocomplete
+Plugin 'Shougo/neocomplete'
+
 call vundle#end()
 filetype plugin indent on
 
@@ -403,3 +406,6 @@ augroup pythonsyntax
 	autocmd FileType python setlocal foldmethod=indent
 	autocmd FileType python setlocal foldtext=substitute(getline(v:foldstart),'\\t','\ \ \ \ ','g')
 augroup end
+
+" Enable Neocomplete.
+let g:neocomplete#enable_at_startup = 1
