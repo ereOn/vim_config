@@ -48,7 +48,7 @@ Plugin 'Tpope/vim-surround'
 Plugin 'Tpope/vim-dispatch'
 
 " Nosetests integration.
-Plugin 'okcompute/vim-runners'
+"Plugin 'okcompute/vim-runners'
 
 " Tags bar.
 Plugin 'majutsushi/tagbar'
@@ -111,6 +111,11 @@ Plugin 'fatih/vim-go'
 " Neocomplete
 Plugin 'Shougo/neocomplete'
 
+" neovim-qt
+if has('nvim')
+    Plugin 'equalsraf/neovim-gui-shim'
+endif
+
 call vundle#end()
 filetype plugin indent on
 
@@ -155,12 +160,14 @@ set background=dark
 let g:airline_theme='base16'
 
 " Set the font.
-if has("gui_running")
-	if has("win32") || has("win16")
-		set guifont=Anonymice_Powerline:h13
-		set antialias
-		let g:airline_powerline_fonts=0
-	endif
+if !has("nvim")
+    if has("gui_running")
+        if has("win32") || has("win16")
+            set guifont=Anonymice_Powerline:h13
+            set antialias
+            let g:airline_powerline_fonts=0
+        endif
+    endif
 endif
 
 " Enable syntax highlighting.
@@ -205,6 +212,14 @@ augroup cppsyntax
 	autocmd FileType c,cpp,cpp11 set tabstop=4
 	autocmd FileType c,cpp,cpp11 set shiftwidth=4
 	autocmd FileType c,cpp,cpp11 set expandtab
+augroup end
+
+" Syntax for vim files
+augroup vimsyntax
+	au!
+	autocmd FileType vim set tabstop=4
+	autocmd FileType vim set shiftwidth=4
+	autocmd FileType vim set expandtab
 augroup end
 
 " Syntax for cmake files
