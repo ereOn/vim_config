@@ -10,7 +10,7 @@ filetype off
 let mapleader=","
 
 " Set the runtime path to include Vundle and initialize.
-if has("win32") || has("win16")
+if has("win32") || has("win16") || has("win32unix")
 	set rtp+=~/vimfiles/bundle/Vundle.vim/
 	call vundle#begin('~/vimfiles/bundle')
 else
@@ -126,7 +126,7 @@ if has("unix")
     set backupdir^=/tmp
     set directory^=/tmp//,.
     set undodir^=~/.vim/undo,/tmp//,.
-elseif has('win32') || has ('win64')
+elseif has('win32') || has ('win64') || has("win32unix")
     let s:temp_vim_dir = $TEMP . "/vim"
     if finddir(s:temp_vim_dir, &rtp) ==# ''
         call mkdir(s:temp_vim_dir)
@@ -162,7 +162,7 @@ let g:airline_theme='base16'
 " Set the font.
 if !has("nvim")
     if has("gui_running")
-        if has("win32") || has("win16")
+        if has("win32") || has("win16") || has("win32unix")
             set guifont=Anonymice_Powerline:h13
             set antialias
             let g:airline_powerline_fonts=0
@@ -301,7 +301,7 @@ set showtabline=2
 
 " Starts GVim maximized.
 if has("gui_running")
-	if has("win32") || has("win16")
+	if has("win32") || has("win16") || has("win32unix")
 		au GUIEnter * simalt ~n
 	else
 	endif
