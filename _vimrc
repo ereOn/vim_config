@@ -303,6 +303,7 @@ set showtabline=2
 if has("gui_running")
 	if has("win32") || has("win16") || has("win32unix")
 		au GUIEnter * simalt ~n
+		au GUIEnter * simalt ~x
 	else
 	endif
 endif
