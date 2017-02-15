@@ -444,3 +444,7 @@ augroup end
 let g:neocomplete#enable_at_startup=1
 let g:neocomplete#enable_auto_close_preview=1
 let g:neocomplete#enable_auto_select=1
+
+" Remap Ctrl+C and Ctrl+X to copy/cut via XMing
+vmap <C-C> "*y
+vmap <C-X> "*c
