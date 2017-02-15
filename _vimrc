@@ -163,7 +163,7 @@ let g:airline_theme='base16'
 if !has("nvim")
     if has("gui_running")
         if has("win32") || has("win16") || has("win32unix")
-            set guifont=Anonymice_Powerline:h13
+            set guifont=DejaVuSansMono:h13
             set antialias
             let g:airline_powerline_fonts=0
         endif
