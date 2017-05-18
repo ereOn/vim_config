@@ -72,9 +72,6 @@ Plugin 'Hdima/python-syntax'
 " C++11 syntax
 Plugin 'vim-scripts/Cpp11-Syntax-Support'
 
-" Better completion.
-Plugin 'vim-scripts/ucompleteme'
-
 " Integrate sessions in CtrlP
 Plugin 'okcompute/vim-ctrlp-session'
 
@@ -108,8 +105,8 @@ Plugin 'rhysd/vim-clang-format'
 " Go
 Plugin 'fatih/vim-go'
 
-" Neocomplete
-Plugin 'Shougo/neocomplete'
+" gocode
+Plugin 'nsf/gocode', {'rtp': 'vim/'}
 
 " neovim-qt
 if has('nvim')
@@ -175,8 +172,6 @@ syntax on
 
 " Enhanced menu completion.
 set wildmenu
-let g:ucompleteme_map_tab=0
-call ucompleteme#Setup()
 
 " Add a ruler.
 set ruler
@@ -440,10 +435,8 @@ augroup pythonsyntax
 	autocmd FileType python setlocal foldtext=substitute(getline(v:foldstart),'\\t','\ \ \ \ ','g')
 augroup end
 
-" Enable Neocomplete.
-let g:neocomplete#enable_at_startup=1
-let g:neocomplete#enable_auto_close_preview=1
-let g:neocomplete#enable_auto_select=1
+" Completion options.
+set completeopt=longest,menu
 
 " Remap Ctrl+C and Ctrl+X to copy/cut via XMing
 vmap <C-C> "*y
