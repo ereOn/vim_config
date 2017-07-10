@@ -132,6 +132,10 @@ if !has("nvim")
             set guifont=DejaVuSansMono:h13
             set antialias
             let g:airline_powerline_fonts=0
+        else
+            set guifont=Monospace\ 15
+            set antialias
+            let g:airline_powerline_fonts=0
         endif
     endif
 else
