@@ -38,39 +38,15 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 
-" Easy commenting with 'gc'.
-Plugin 'Tpope/vim-commentary'
-
-" Easy surrounding change with 'cs'.
-Plugin 'Tpope/vim-surround'
-
-" Execute tasks in background.
-Plugin 'Tpope/vim-dispatch'
-
-" Nosetests integration.
-"Plugin 'okcompute/vim-runners'
-
-" Tags bar.
-Plugin 'majutsushi/tagbar'
-
-" Syntax linters.
-Plugin 'scrooloose/syntastic'
-
 " Need by xolox's plugins.
 Plugin 'xolox/vim-misc'
 
 " Enable fullscreen, maximize.
 Plugin 'xolox/vim-shell'
 
-" Update tags by deleting entries.
-Plugin 'vim-scripts/AutoTag'
-
 " Python pep8 syntax.
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'Hdima/python-syntax'
-
-" C++11 syntax
-Plugin 'vim-scripts/Cpp11-Syntax-Support'
 
 " Integrate sessions in CtrlP
 Plugin 'okcompute/vim-ctrlp-session'
@@ -84,37 +60,26 @@ Plugin 'Ntpeters/vim-better-whitespace'
 " Undo history and branching.
 Plugin 'Sjl/gundo.vim'
 
-" Use "gS" to split a one-liner; use "gJ" to join several lines.
-Plugin 'AndrewRadev/splitjoin.vim'
-
-" Auto-generate Python docstrings with <C-L> or :Pydocstring.
-Plugin 'heavenshell/vim-pydocstring'
-
-" Multiple cursors (à-la SublimeText) with <C-n>/<C-p>.
-Plugin 'terryma/vim-multiple-cursors'
-
-" Objective-C support.
-Plugin 'b4winckler/vim-objc'
-
 " Python text objects
 Plugin 'okcompute/vim-python-text-objects'
-
-" Clang Format
-Plugin 'rhysd/vim-clang-format'
 
 " Go
 Plugin 'fatih/vim-go'
 
 if has('nvim')
-    Plugin 'jodosha/vim-godebug'
+    Plugin 'sebdah/vim-delve'
 endif
+
+" Asynchronous Linter
+Plugin 'w0rp/ale'
 
 " gocode
 Plugin 'nsf/gocode', {'rtp': 'vim/'}
 
-" neovim-qt
+" Completion for NeoVim
 if has('nvim')
-    Plugin 'equalsraf/neovim-gui-shim'
+    Plugin 'Shougo/deoplete.nvim'
+    Plugin 'zchee/deoplete-go'
 endif
 
 call vundle#end()
@@ -169,6 +134,9 @@ if !has("nvim")
             let g:airline_powerline_fonts=0
         endif
     endif
+else
+    " Enable deoplete on startup
+    let g:deoplete#enable_at_startup = 1
 endif
 
 " Enable syntax highlighting.
@@ -346,17 +314,6 @@ map <C-S> :CtrlPSession<cr>
 set fileformats=unix,dos
 set fileformat=unix
 
-" Syntastic.
-let g:syntastic_check_on_open=1
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_jump=0
-let g:syntastic_python_checkers = ['flake8']
-let g:syntastic_python_flake8_args='--ignore=E501,E124,E265'
-let g:syntastic_haskell_ghc_mod_args='-g -fno-warn-type-defaults'
-let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-
 " Fixes an issue with the quickfix windows with Go.
 let g:go_list_type = "quickfix"
 
@@ -365,6 +322,8 @@ augroup gosyntax
 	au!
     au FileType go set shiftwidth=4
     au FileType go set tabstop=4
+    au FileType go set softtabstop=4
+    au FileType go set noexpandtab
     au FileType go nmap <leader>r <Plug>(go-run)
     au FileType go nmap <leader>b <Plug>(go-build)
     au FileType go nmap <leader>t <Plug>(go-test)
@@ -388,6 +347,23 @@ augroup end
 
 " Manage Go imports upon save and format.
 let g:go_fmt_command = "goimports"
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_auto_sameids = 1
+let g:go_auto_type_info = 1
+
+" Error and warning signs.
+let g:ale_sign_error = '⤫'
+let g:ale_sign_warning = '⚠'
+
+" Enable ALE integration with airline.
+let g:airline#extensions#ale#enabled = 1
 
 " Tell easytags to operate in the background.
 let g:easytags_async=1
