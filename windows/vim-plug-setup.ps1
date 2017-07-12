@@ -1,11 +1,22 @@
-$path = '~\AppData\Local\nvim\autoload'
-If (test-path $path) {Remove-Item $path -recurse}
-md $path
+$nvimPath = '~\AppData\Local\nvim\autoload'
+If (test-path $nvimPath) {Remove-Item $nvimPath -recurse}
+md $nvimPath
+
+$vimPath = '~\vim'
+If (test-path $vimPath) {Remove-Item $vimPath -recurse}
+md $vimPath
+
 $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 (New-Object Net.WebClient).DownloadFile(
   $uri,
   $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath(
     "~\AppData\Local\nvim\autoload\plug.vim"
+  )
+)
+(New-Object Net.WebClient).DownloadFile(
+  $uri,
+  $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath(
+    "~\vim\autoload\plug.vim"
   )
 )
 
