@@ -45,7 +45,7 @@ Plug 'nsf/gocode', {'rtp': 'vim'}
 Plug 'sebdah/vim-delve', has('nvim') ? {} : {'on': []}
 
 " Asynchronous Linter
-Plug 'w0rp/ale', has('nvim') ? {} : {'on': []}
+Plug 'w0rp/ale', v:version >= 800 ? {} : {'on': []}
 
 call plug#end()
 

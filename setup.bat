@@ -12,10 +12,10 @@ echo Copying ginit.vim to %NVIMDATA%...
 copy ginit.vim "%NVIMDATA%\ginit.vim"
 
 echo Installing vim-plug...
-powershell -File vim-plug-setup.ps1
+powershell -File windows\vim-plug-setup.ps1
 
 REM echo Installing fonts...
-REM powershell -File fonts-setup.ps1
+REM powershell -File windows\fonts-setup.ps1
 
 echo Setup complete. Enjoy !
 endlocal
