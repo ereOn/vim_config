@@ -49,6 +49,13 @@ Plug 'w0rp/ale', v:version >= 800 ? {} : {'on': []}
 
 call plug#end()
 
+" Backups.
+if has("unix")
+    set backupdir^=/tmp
+    set directory^=/tmp//,.
+    set undodir^=~/.vim/undo,/tmp//,.
+endif
+
 " Theme.
 colorscheme base16-default-dark
 set background=dark
