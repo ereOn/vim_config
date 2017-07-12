@@ -68,10 +68,10 @@ Plugin 'fatih/vim-go'
 
 if has('nvim')
     Plugin 'sebdah/vim-delve'
-endif
 
-" Asynchronous Linter
-Plugin 'w0rp/ale'
+    " Asynchronous Linter
+    Plugin 'w0rp/ale'
+endif
 
 " gocode
 Plugin 'nsf/gocode', {'rtp': 'vim/'}
@@ -171,12 +171,6 @@ augroup sconsfiletypes
 	autocmd BufRead,BufNewFile SConstruct setfiletype python
 augroup end
 
-" Objective-C files.
-augroup sconsfiletypes
-	au!
-	autocmd BufRead,BufNewFile *.m setfiletype objc
-augroup end
-
 " Syntax for C++
 augroup cppsyntax
 	au!
@@ -271,12 +265,14 @@ set guioptions=
 set showtabline=2
 
 " Starts GVim maximized.
-if has("gui_running")
-	if has("win32") || has("win16") || has("win32unix")
-		au GUIEnter * simalt ~n
-		au GUIEnter * simalt ~x
-	else
-	endif
+if !has("nvim")
+    if has("gui_running")
+        if has("win32") || has("win16") || has("win32unix")
+            au GUIEnter * simalt ~n
+            au GUIEnter * simalt ~x
+        else
+        endif
+    endif
 endif
 
 " Map keys to TagBar.
