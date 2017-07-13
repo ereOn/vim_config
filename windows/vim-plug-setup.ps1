@@ -2,7 +2,7 @@ $nvimPath = '~\AppData\Local\nvim\autoload'
 If (test-path $nvimPath) {Remove-Item $nvimPath -recurse}
 md $nvimPath
 
-$vimPath = '~\vim\autoload'
+$vimPath = '~\vimfiles\autoload'
 If (test-path $vimPath) {Remove-Item $vimPath -recurse}
 md $vimPath
 
@@ -19,6 +19,3 @@ $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     "~\vim\autoload\plug.vim"
   )
 )
-
-$pluginsPath = '~\AppData\Local\nvim\plugged'
-If (-Not (test-path $pluginsPath)) {md $pluginsPath}
