@@ -54,6 +54,29 @@ if has("unix")
     set backupdir^=/tmp
     set directory^=/tmp//,.
     set undodir^=~/.vim/undo,/tmp//,.
+elseif has('win32') || has ('win64') || has("win32unix")
+    let s:temp_vim_dir = $TEMP . "/vim"
+    if finddir(s:temp_vim_dir, &rtp) ==# ''
+        call mkdir(s:temp_vim_dir)
+    endif
+
+    let s:backup_dir = $TEMP . "/vim/backup"
+    if finddir(s:backup_dir, &rtp) ==# ''
+        call mkdir(s:backup_dir)
+    endif
+    execute "set backupdir^=".s:backup_dir."//"
+
+    let s:undo_dir = $HOME . "/vimfiles/undo"
+    if finddir(s:undo_dir, &rtp) ==# ''
+        call mkdir(s:undo_dir)
+    endif
+    execute "set undodir^=".s:undo_dir."//"
+
+    let s:swap_dir = $TEMP . "/vim/swap"
+    if finddir(s:swap_dir, &rtp) ==# ''
+        call mkdir(s:swap_dir)
+    endif
+    execute "set directory^=".s:swap_dir."//"
 endif
 
 " Theme.
@@ -62,7 +85,8 @@ set background=dark
 let g:airline_theme='base16'
 
 " Set the encoding.
-set termencoding=utf-8
+set encoding=utf8
+set termencoding=utf8
 set fileencodings=utf8
 
 " Show line numbers.
