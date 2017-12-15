@@ -50,6 +50,9 @@ Plug 'w0rp/ale', v:version >= 800 ? {} : {'on': []}
 " Python formatter
 Plug 'google/yapf'
 
+" Python completion
+Plug 'zchee/deoplete-jedi'
+
 call plug#end()
 
 " Backups.
