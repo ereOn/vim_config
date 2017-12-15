@@ -279,3 +279,4 @@ let g:airline#extensions#ale#enabled = 1
 
 " Disable Rope for Python.
 let g:pymode_rope = 0
+let g:pymode_rope_complete_on_dot = 0
