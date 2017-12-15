@@ -51,7 +51,7 @@ Plug 'w0rp/ale', v:version >= 800 ? {} : {'on': []}
 Plug 'google/yapf'
 
 " Python completion
-Plug 'zchee/deoplete-jedi'
+Plug 'python-mode/python-mode'
 
 call plug#end()
 
@@ -227,7 +227,7 @@ augroup end
 
 " Syntax for yaml files
 augroup yamlsyntax
-	au!
+	au!let g:pymode_rope = 0
 	autocmd FileType yaml set tabstop=2
 	autocmd FileType yaml set shiftwidth=2
 	autocmd FileType yaml set expandtab
@@ -276,3 +276,6 @@ let g:ale_sign_warning = '⚠'
 
 " Enable ALE integration with airline.
 let g:airline#extensions#ale#enabled = 1
+
+" Disable Rope for Python.
+let g:pymode_rope = 0
