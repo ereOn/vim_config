@@ -47,6 +47,9 @@ Plug 'sebdah/vim-delve', has('nvim') ? {} : {'on': []}
 " Asynchronous Linter
 Plug 'w0rp/ale', v:version >= 800 ? {} : {'on': []}
 
+" Python formatter
+Plug 'google/yapf'
+
 call plug#end()
 
 " Backups.
