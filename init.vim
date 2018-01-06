@@ -227,7 +227,7 @@ augroup end
 
 " Syntax for yaml files
 augroup yamlsyntax
-	au!let g:pymode_rope = 0
+    au!
 	autocmd FileType yaml set tabstop=2
 	autocmd FileType yaml set shiftwidth=2
 	autocmd FileType yaml set expandtab
