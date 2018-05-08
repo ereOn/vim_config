@@ -162,6 +162,7 @@ let g:go_list_type = "quickfix"
 " Go bindings.
 augroup gosyntax
 	au!
+	au BufRead,BufNewFile go.template setfiletype go
 	au FileType go set shiftwidth=4
 	au FileType go set tabstop=4
 	au FileType go set softtabstop=4
@@ -189,72 +190,73 @@ augroup end
 " Recognize SConscript and SConstruct files as Python.
 augroup sconsfiletypes
 	au!
-	autocmd BufRead,BufNewFile SConscript setfiletype python
-	autocmd BufRead,BufNewFile SConstruct setfiletype python
+	au BufRead,BufNewFile SConscript setfiletype python
+	au BufRead,BufNewFile SConstruct setfiletype python
 augroup end
 
 " Syntax for C++
 augroup cppsyntax
 	au!
-	autocmd FileType c,cpp,cpp11 set tabstop=4
-	autocmd FileType c,cpp,cpp11 set shiftwidth=4
-	autocmd FileType c,cpp,cpp11 set expandtab
+	aut FileType c,cpp,cpp11 set tabstop=4
+	aut FileType c,cpp,cpp11 set shiftwidth=4
+	aut FileType c,cpp,cpp11 set expandtab
 augroup end
 
 " Syntax for vim files
 augroup vimsyntax
 	au!
-	autocmd FileType vim set tabstop=4
-	autocmd FileType vim set shiftwidth=4
-	autocmd FileType vim set expandtab
+	au FileType vim set tabstop=4
+	au FileType vim set shiftwidth=4
+	au FileType vim set expandtab
 augroup end
 
 " Syntax for cmake files
 augroup cmakesyntax
 	au!
-	autocmd FileType cmake set tabstop=4
-	autocmd FileType cmake set shiftwidth=4
-	autocmd FileType cmake set expandtab
+	au FileType cmake set tabstop=4
+	au FileType cmake set shiftwidth=4
+	au FileType cmake set expandtab
 augroup end
 
 " Syntax for rST files
 augroup rstsyntax
 	au!
-	autocmd FileType rst set tabstop=3
-	autocmd FileType rst set shiftwidth=3
-	autocmd FileType rst set expandtab
+	au FileType rst set tabstop=3
+	au FileType rst set shiftwidth=3
+	au FileType rst set expandtab
 augroup end
 
 " Syntax for yaml files
 augroup yamlsyntax
     au!
-	autocmd FileType yaml set tabstop=2
-	autocmd FileType yaml set shiftwidth=2
-	autocmd FileType yaml set expandtab
+	au BufRead,BufNewFile yaml.template setfiletype yaml
+	au FileType yaml set tabstop=2
+	au FileType yaml set shiftwidth=2
+	au FileType yaml set expandtab
 augroup end
 
 " Syntax for LUA files
 augroup luasyntax
 	au!
-	autocmd FileType lua set tabstop=4
-	autocmd FileType lua set shiftwidth=4
-	autocmd FileType lua set expandtab
+	au FileType lua set tabstop=4
+	au FileType lua set shiftwidth=4
+	au FileType lua set expandtab
 augroup end
 
 " Syntax for HTML files
 augroup htmlsyntax
 	au!
-	autocmd FileType html set tabstop=2
-	autocmd FileType html set shiftwidth=2
-	autocmd FileType html set expandtab
+	au FileType html set tabstop=2
+	au FileType html set shiftwidth=2
+	au FileType html set expandtab
 augroup end
 
 " Syntax for Javascript files
 augroup javascriptsyntax
 	au!
-	autocmd FileType javascript set tabstop=2
-	autocmd FileType javascript set shiftwidth=2
-	autocmd FileType javascript set expandtab
+	au FileType javascript set tabstop=2
+	au FileType javascript set shiftwidth=2
+	au FileType javascript set expandtab
 augroup end
 
 " Manage Go imports upon save and format.
