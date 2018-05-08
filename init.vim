@@ -53,6 +53,9 @@ Plug 'google/yapf'
 " Python completion
 Plug 'python-mode/python-mode'
 
+" Terraform
+Plug 'hashivim/vim-terraform'
+
 call plug#end()
 
 " Backups.
