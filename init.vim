@@ -56,6 +56,9 @@ Plug 'python-mode/python-mode'
 " Terraform
 Plug 'hashivim/vim-terraform'
 
+" Perforce
+Plug 'nfvs/vim-perforce'
+
 call plug#end()
 
 " Backups.
