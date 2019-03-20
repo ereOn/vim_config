@@ -59,6 +59,9 @@ Plug 'hashivim/vim-terraform'
 " Perforce
 Plug 'nfvs/vim-perforce'
 
+" Terraform
+Plug 'hashivim/vim-terraform'
+
 call plug#end()
 
 " Backups.
