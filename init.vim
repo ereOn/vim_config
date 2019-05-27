@@ -62,6 +62,10 @@ Plug 'nfvs/vim-perforce'
 " Terraform
 Plug 'hashivim/vim-terraform'
 
+" Bazel
+Plug 'google/vim-maktaba'
+Plug 'bazelbuild/vim-bazel'
+
 call plug#end()
 
 " Backups.
@@ -266,6 +270,14 @@ augroup javascriptsyntax
 	au FileType javascript set tabstop=2
 	au FileType javascript set shiftwidth=2
 	au FileType javascript set expandtab
+augroup end
+
+" Syntax for Bazel files
+augroup bazelsyntax
+	au!
+	aut FileType bzl set tabstop=4
+	aut FileType bzl set shiftwidth=4
+	aut FileType bzl set expandtab
 augroup end
 
 " Manage Go imports upon save and format.
