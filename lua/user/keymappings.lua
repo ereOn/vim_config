@@ -1,5 +1,5 @@
 -- Fuzzy search
-vim.keymap.set("n", "<leader>p", require("telescope.builtin").find_files, {})
+vim.keymap.set("n", "<leader>p", require("telescope.builtin").fd, {})
 vim.keymap.set("n", "<leader>b", require("telescope.builtin").buffers, {})
 vim.keymap.set("n", "<leader>l", require("telescope.builtin").treesitter, {})
 
