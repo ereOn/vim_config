@@ -142,10 +142,15 @@ return packer.startup(function(use)
 	})
 
 	-- Pairs highlighting
-	use {
-	"windwp/nvim-autopairs",
-    config = function() require("nvim-autopairs").setup {} end
-}
+	use({
+		"windwp/nvim-autopairs",
+		config = function()
+			require("nvim-autopairs").setup({})
+		end,
+	})
+
+	-- Terraform
+	use("hashivim/vim-terraform")
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
