@@ -152,6 +152,16 @@ return packer.startup(function(use)
 	-- Terraform
 	use("hashivim/vim-terraform")
 
+	-- YAML
+	use({
+		"cuducos/yaml.nvim",
+		ft = { "yaml" }, -- optional
+		requires = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-telescope/telescope.nvim", -- optional
+		},
+	})
+
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then
