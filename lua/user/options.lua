@@ -20,3 +20,5 @@ vim.g.maplocalleader = ";"
 vim.o.updatetime = 250 -- Don't wait a lot for CursorHold events
 
 vim.g.neo_tree_remove_legacy_commands = true -- Remove legacy commands from neo-tree.
+
+vim.g.terraform_fmt_on_save = true -- Format Terraform files upon save
