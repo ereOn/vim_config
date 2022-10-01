@@ -12,3 +12,6 @@ vim.keymap.set("n", "<C-up>", "<cmd>TroubleClose<cr>", {})
 
 -- Exit terminal mode
 vim.keymap.set("t", "<Esc>", "<C-><C-n>", {})
+
+-- Update the configuration
+vim.keymap.set("n", "<leader>cfg", "<cmd>!cd $MYVIMRC:h && git pull<cr>", {})
