@@ -38,3 +38,21 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 		vim.opt_local.indentkeys:remove("0#") -- For some reason it gets overriden.
 	end,
 })
+
+vim.api.nvim_create_autocmd({ "BufRead,BufNewFile" }, {
+	pattern = { "justfile" },
+	callback = function()
+		vim.opt_local.filetype = "justfile"
+	end,
+})
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	pattern = { "justfile" },
+	callback = function()
+		vim.opt_local.tabstop = 2
+		vim.opt_local.softtabstop = 2
+		vim.opt_local.shiftwidth = 2
+		vim.opt_local.expandtab = true
+		vim.opt_local.indentkeys:remove("0#") -- For some reason it gets overriden.
+	end,
+})
