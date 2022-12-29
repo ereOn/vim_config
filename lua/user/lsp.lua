@@ -9,7 +9,7 @@ rt.setup({
 			-- Code action groups
 			vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
 
-			if client.resolved_capabilities.document_highlight then
+			if client.server_capabilities.documentHighlightProvider then
 				vim.cmd([[
 					  hi! LspReferenceRead cterm=bold ctermbg=235 guibg=LightYellow
 					  hi! LspReferenceText cterm=bold ctermbg=235 guibg=LightYellow
@@ -50,7 +50,7 @@ rt.setup({
 			vim.keymap.set("n", "<C-.>", vim.lsp.buf.code_action, bufopts)
 			vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
 			vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", bufopts)
-			vim.keymap.set("n", "<leader>f", vim.lsp.buf.formatting, bufopts)
+			vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, bufopts)
 
 			require("illuminate").on_attach(client)
 		end,
