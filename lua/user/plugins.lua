@@ -162,12 +162,14 @@ return packer.startup(function(use)
 		},
 	})
 
-
 	--- Icons
-	use 'nvim-tree/nvim-web-devicons'
+	use("nvim-tree/nvim-web-devicons")
 
 	--- Fugitive
-	use 'tpope/vim-fugitive'
+	use("tpope/vim-fugitive")
+
+	--- VimTex
+	use("lervag/vimtex")
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
