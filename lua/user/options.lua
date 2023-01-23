@@ -23,6 +23,10 @@ vim.g.neo_tree_remove_legacy_commands = true -- Remove legacy commands from neo-
 
 vim.g.terraform_fmt_on_save = true -- Format Terraform files upon save
 
+vim.g.vimtex_view_method = "zathura" -- Set the default viewer for VimTex
+vim.g.vimtex_syntax_enabled = 0 -- Fix Treesitter conflicts with VimTex.
+vim.g.vimtex_syntax_conceal_disable = 1 -- Same.
+
 -- Enable mouse mode only when not running in tmux
 if os.getenv("TMUX") == nil then
 	vim.cmd([[set mouse=a]])
