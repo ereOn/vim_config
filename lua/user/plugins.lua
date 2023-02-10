@@ -171,6 +171,9 @@ return packer.startup(function(use)
 	--- VimTex
 	use("lervag/vimtex")
 
+	--- Plist
+	use("darfink/vim-plist")
+
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then
