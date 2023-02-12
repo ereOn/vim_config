@@ -174,6 +174,9 @@ return packer.startup(function(use)
 	--- Plist
 	use("darfink/vim-plist")
 
+	--- Toml
+	use("cespare/vim-toml")
+
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then
