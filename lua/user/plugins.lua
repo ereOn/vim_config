@@ -177,6 +177,16 @@ return packer.startup(function(use)
 	--- Toml
 	use("cespare/vim-toml")
 
+	--- Jinja
+	use({
+		"HiPhish/jinja.vim",
+		config = function()
+			vim.cmd([[
+				autocmd! BufRead,BufNewFile *.html call jinja#AdjustFiletype()
+			]])
+		end,
+	})
+
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then
