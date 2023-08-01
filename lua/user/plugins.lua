@@ -62,11 +62,9 @@ return packer.startup(function(use)
 		},
 	})
 
-	--- Jinja
-	use("HiPhish/jinja.vim")
-
 	-- Syntaxic coloration
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+	use("p00f/nvim-ts-rainbow")
 
 	-- Code formatting
 	use({ "mhartington/formatter.nvim" })

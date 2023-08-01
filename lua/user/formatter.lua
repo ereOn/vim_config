@@ -46,6 +46,13 @@ vim.api.nvim_create_autocmd({ "BufRead,BufNewFile" }, {
 	end,
 })
 
+vim.api.nvim_create_autocmd({ "BufRead,BufNewFile" }, {
+	pattern = { "*.html.jinja", "*.html.jinja2" },
+	callback = function()
+		vim.opt_local.filetype = "htmldjango"
+	end,
+})
+
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "justfile" },
 	callback = function()
