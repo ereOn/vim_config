@@ -39,19 +39,23 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	end,
 })
 
-vim.api.nvim_create_autocmd({ "BufRead,BufNewFile" }, {
-	pattern = { "justfile" },
-	callback = function()
-		vim.opt_local.filetype = "justfile"
-	end,
-})
+events = { "BufRead", "BufNewFile" }
 
-vim.api.nvim_create_autocmd({ "BufRead,BufNewFile" }, {
-	pattern = { "*.html.jinja", "*.html.jinja2" },
-	callback = function()
-		vim.opt_local.filetype = "htmldjango"
-	end,
-})
+for _, event in ipairs(events) do
+	vim.api.nvim_create_autocmd({ event }, {
+		pattern = { "justfile" },
+		callback = function()
+			vim.opt_local.filetype = "justfile"
+		end,
+	})
+
+	vim.api.nvim_create_autocmd({ event }, {
+		pattern = { "*.html.jinja", "*.html.jinja2" },
+		callback = function()
+			vim.opt_local.filetype = "htmldjango"
+		end,
+	})
+end
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "justfile" },
