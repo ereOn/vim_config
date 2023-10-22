@@ -178,6 +178,15 @@ return packer.startup(function(use)
 	--- Toml
 	use("cespare/vim-toml")
 
+	--- Necessary for NeoVide
+	use({
+		"s1n7ax/nvim-window-picker",
+		tag = "v2.*",
+		config = function()
+			require("window-picker").setup()
+		end,
+	})
+
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then
