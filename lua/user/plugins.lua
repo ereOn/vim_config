@@ -178,6 +178,9 @@ return packer.startup(function(use)
 	--- Toml
 	use("cespare/vim-toml")
 
+	--- Github Copilot
+	use("github/copilot.vim")
+
 	--- Necessary for NeoVide
 	use({
 		"s1n7ax/nvim-window-picker",
