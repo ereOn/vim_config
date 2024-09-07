@@ -1,5 +1,5 @@
 -- Fuzzy search
-vim.keymap.set("n", "<leader>p", require("telescope.builtin").fd, {})
+vim.keymap.set("n", "<leader>f", require("telescope.builtin").fd, {})
 vim.keymap.set("n", "<leader>b", require("telescope.builtin").buffers, {})
 vim.keymap.set("n", "<leader>l", require("telescope.builtin").treesitter, {})
 
@@ -7,8 +7,8 @@ vim.keymap.set("n", "<leader>l", require("telescope.builtin").treesitter, {})
 vim.keymap.set("n", "<leader>t", "<cmd>Neotree toggle<cr>", {})
 
 -- Trouble
-vim.keymap.set("n", "<C-down>", "<cmd>Trouble<cr>", {})
-vim.keymap.set("n", "<C-up>", "<cmd>TroubleClose<cr>", {})
+vim.keymap.set("n", "<leader>d", "<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>", {})
+vim.keymap.set("n", "<leader>s", "<cmd>Trouble symbols toggle focus=false<cr>", bufopts)
 
 -- Exit terminal mode
 vim.keymap.set("t", "<Esc>", "<C-><C-n>", {})

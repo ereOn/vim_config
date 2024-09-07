@@ -57,7 +57,7 @@ return packer.startup(function(use)
 		branch = "v3.x",
 		requires = {
 			"nvim-lua/plenary.nvim",
-			"kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 			"MunifTanjim/nui.nvim",
 		},
 	})
@@ -72,7 +72,7 @@ return packer.startup(function(use)
 	--- Status line
 	use({
 		"nvim-lualine/lualine.nvim",
-		requires = { "kyazdani42/nvim-web-devicons" },
+		requires = { "nvim-tree/nvim-web-devicons" },
 	})
 
 	--- Perforce :(
@@ -114,7 +114,8 @@ return packer.startup(function(use)
 	-- Trouble
 	use({
 		"folke/trouble.nvim",
-		requires = "kyazdani42/nvim-web-devicons",
+		tag = "v3.6.0",
+		requires = "nvim-tree/nvim-web-devicons",
 		config = function()
 			require("trouble").setup({
 				-- your configuration comes here

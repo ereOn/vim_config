@@ -49,7 +49,7 @@ rt.setup({
 			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
 			vim.keymap.set("n", "<C-.>", vim.lsp.buf.code_action, bufopts)
 			vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-			vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", bufopts)
+			vim.keymap.set("n", "gR", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", bufopts)
 			vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, bufopts)
 
 			require("illuminate").on_attach(client)
@@ -74,10 +74,10 @@ local sign = function(opts)
 	})
 end
 
-sign({ name = "DiagnosticSignError", text = "" })
-sign({ name = "DiagnosticSignWarn", text = "" })
-sign({ name = "DiagnosticSignHint", text = "" })
-sign({ name = "DiagnosticSignInfo", text = "" })
+sign({ name = "DiagnosticSignError", text = "" })
+sign({ name = "DiagnosticSignWarn", text = "" })
+sign({ name = "DiagnosticSignHint", text = "󰋱" })
+sign({ name = "DiagnosticSignInfo", text = "" })
 
 vim.diagnostic.config({
 	virtual_text = false,
