@@ -125,6 +125,14 @@ return packer.startup(function(use)
 		end,
 	})
 
+	use({
+		"folke/todo-comments.nvim",
+		requires = "nvim-lua/plenary.nvim",
+		config = function()
+			require("todo-comments").setup({})
+		end,
+	})
+
 	-- Project
 	use("ahmedkhalf/project.nvim")
 
