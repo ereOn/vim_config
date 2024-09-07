@@ -49,7 +49,7 @@ return packer.startup(function(use)
 	-- Telescope fuzzy finder
 	use({
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.0",
+		branch = "0.1.x",
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
 	use({
