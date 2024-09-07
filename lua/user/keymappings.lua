@@ -10,6 +10,9 @@ vim.keymap.set("n", "<leader>t", "<cmd>Neotree toggle<cr>", {})
 vim.keymap.set("n", "<leader>d", "<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>", {})
 vim.keymap.set("n", "<leader>s", "<cmd>Trouble symbols toggle focus=false<cr>", bufopts)
 
+-- Zen mode
+vim.keymap.set("n", "<leader>z", "<cmd>ZenMode<cr>", bufopts)
+
 -- Exit terminal mode
 vim.keymap.set("t", "<Esc>", "<C-><C-n>", {})
 
