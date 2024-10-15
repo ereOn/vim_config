@@ -31,3 +31,8 @@ vim.g.vimtex_syntax_conceal_disable = 1 -- Same.
 if os.getenv("TMUX") == nil then
 	vim.cmd([[set mouse=a]])
 end
+
+-- Change Neovide scaling
+if vim.g.neovide then
+	vim.g.neovide_scale_factor = 0.8
+end
