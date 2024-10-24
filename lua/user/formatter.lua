@@ -13,6 +13,15 @@ require("formatter").setup({
 	},
 })
 
+local null_ls = require("null-ls")
+
+null_ls.setup({
+	sources = {
+		null_ls.builtins.diagnostics.djlint,
+		null_ls.builtins.formatting.djlint,
+	},
+})
+
 vim.cmd([[
   augroup FormatAutogroup
     autocmd!
@@ -23,6 +32,14 @@ vim.cmd([[
 -- Format Rust using LSP.
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 	pattern = { "*.rs" },
+	callback = function()
+		vim.lsp.buf.format(nil, 200)
+	end,
+})
+
+-- format htmldjango using LSP.
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+	pattern = { "*.html.jinja" },
 	callback = function()
 		vim.lsp.buf.format(nil, 200)
 	end,

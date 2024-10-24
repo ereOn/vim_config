@@ -50,7 +50,7 @@ rt.setup({
 			vim.keymap.set("n", "<C-.>", vim.lsp.buf.code_action, bufopts)
 			vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
 			vim.keymap.set("n", "gR", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", bufopts)
-			vim.keymap.set("n", "<leader>F", vim.lsp.buf.format, bufopts)
+			vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, bufopts)
 
 			require("illuminate").on_attach(client)
 		end,
