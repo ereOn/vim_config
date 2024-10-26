@@ -24,4 +24,7 @@ return {
 	-- Markdown
 	"godlygeek/tabular",
 	"preservim/vim-markdown",
+
+	-- Justfile
+	"IndianBoy42/tree-sitter-just",
 }
