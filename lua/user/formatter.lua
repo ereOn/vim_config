@@ -62,7 +62,7 @@ for _, event in ipairs(events) do
 	vim.api.nvim_create_autocmd({ event }, {
 		pattern = { "justfile" },
 		callback = function()
-			vim.opt_local.filetype = "justfile"
+			vim.opt_local.filetype = "just"
 		end,
 	})
 
