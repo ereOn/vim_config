@@ -10,6 +10,7 @@ require("formatter").setup({
 	filetype = {
 		lua = { require("formatter.filetypes.lua").stylua },
 		json = { require("formatter.filetypes.json").jq },
+		css = { require("formatter.filetypes.css").prettier },
 	},
 })
 
@@ -29,17 +30,9 @@ vim.cmd([[
   augroup END
 ]])
 
--- Format Rust using LSP.
+-- Format Rust, HTML Django, CSS using LSP.
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-	pattern = { "*.rs" },
-	callback = function()
-		vim.lsp.buf.format(nil, 200)
-	end,
-})
-
--- format htmldjango using LSP.
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-	pattern = { "*.html.jinja" },
+	pattern = { "*.rs", "*.html.jinja", "*.html", "*.css" },
 	callback = function()
 		vim.lsp.buf.format(nil, 200)
 	end,
