@@ -1,6 +1,6 @@
 return {
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-	{ "p00f/nvim-ts-rainbow" },
+	"hiphish/rainbow-delimiters.nvim",
 	{
 		"windwp/nvim-autopairs",
 		config = function()
