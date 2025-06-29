@@ -57,7 +57,8 @@ rt.setup({
 
 		settings = {
 			["rust-analyzer"] = {
-				checkOnSave = {
+				checkOnSave = true,
+				check = {
 					command = "clippy",
 				},
 				cargo = {
