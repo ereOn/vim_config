@@ -6,7 +6,7 @@ return {
 		config = function()
 			require("mason").setup()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "rust_analyzer", "gopls" },
+				ensure_installed = { "rust_analyzer", "gopls", "black", "ruff" },
 			})
 		end,
 	},
