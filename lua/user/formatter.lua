@@ -20,7 +20,6 @@ null_ls.setup({
 	sources = {
 		null_ls.builtins.diagnostics.djlint,
 		null_ls.builtins.formatting.djlint,
-		null_ls.builtins.diagnostics.ruff,
 		null_ls.builtins.formatting.black,
 	},
 })
@@ -34,7 +33,7 @@ vim.cmd([[
 
 -- Format Rust, HTML Django, CSS using LSP.
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-	pattern = { "*.rs", "*.html.jinja", "*.html", "*.css" },
+	pattern = { "*.rs", "*.html.jinja", "*.html", "*.css", "*.py" },
 	callback = function()
 		vim.lsp.buf.format(nil, 200)
 	end,

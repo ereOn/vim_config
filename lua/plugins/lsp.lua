@@ -1,17 +1,36 @@
 return {
-	"williamboman/mason.nvim",
+	{
+		"williamboman/mason.nvim",
+		config = function()
+			require("mason").setup({
+				ensure_installed = {
+					"prettier",
+				},
+			})
+		end,
+	},
 
 	{
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
 			require("mason").setup()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "rust_analyzer", "gopls", "black", "ruff" },
+				ensure_installed = {
+					"rust_analyzer",
+					"gopls",
+					"pyright",
+					"ruff",
+				},
 			})
 		end,
 	},
 
-	"neovim/nvim-lspconfig",
+	{
+		"neovim/nvim-lspconfig",
+		config = function()
+			require("lspconfig").pyright.setup({})
+		end,
+	},
 	"simrat39/rust-tools.nvim",
 	"RRethy/vim-illuminate",
 
