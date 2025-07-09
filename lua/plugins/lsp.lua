@@ -25,12 +25,7 @@ return {
 		end,
 	},
 
-	{
-		"neovim/nvim-lspconfig",
-		config = function()
-			require("lspconfig").pyright.setup({})
-		end,
-	},
+	"neovim/nvim-lspconfig",
 	"simrat39/rust-tools.nvim",
 	"RRethy/vim-illuminate",
 

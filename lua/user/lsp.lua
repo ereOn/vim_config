@@ -78,6 +78,9 @@ local lspconfig = require("lspconfig")
 lspconfig.pyright.setup({
 	on_attach = on_attach,
 })
+lspconfig.prettier.setup({
+	on_attach = on_attach,
+})
 
 --- LSP diagnostics
 local sign = function(opts)

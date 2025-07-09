@@ -21,6 +21,24 @@ null_ls.setup({
 		null_ls.builtins.diagnostics.djlint,
 		null_ls.builtins.formatting.djlint,
 		null_ls.builtins.formatting.black,
+		null_ls.builtins.formatting.prettier.with({
+			filetypes = {
+				"javascript",
+				"typescript",
+				"json",
+				"yaml",
+				"markdown",
+				"html",
+				"htmldjango",
+				"css",
+				"scss",
+			},
+		}),
+		require("none-ls.diagnostics.ruff").with({
+			extra_args = {
+				"--no-isort",
+			},
+		}),
 	},
 })
 
