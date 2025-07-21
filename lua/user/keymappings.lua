@@ -18,3 +18,8 @@ vim.keymap.set("t", "<Esc>", "<C-><C-n>", {})
 
 -- Update the configuration
 vim.keymap.set("n", "<leader>cfg", "<cmd>!cd $MYVIMRC:h && git pull<cr>", {})
+
+-- Open Copilot Chat
+vim.keymap.set("n", "<leader>cc", "<cmd>CopilotChatBuffer<cr>", {})
+vim.keymap.set("n", "<leader>ce", "<cmd>CopilotChatExplain<cr>", {})
+vim.keymap.set("n", "<leader>ct", "<cmd>CopilotChatTests<cr>", {})
