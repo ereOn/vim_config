@@ -25,7 +25,23 @@ return {
 		end,
 	},
 
-	"neovim/nvim-lspconfig",
+	{
+		"neovim/nvim-lspconfig",
+		config = function()
+			vim.diagnostic.config({
+				float = {
+					focusable = false,
+					border = "rounded",
+					source = "always",
+					header = "",
+					prefix = "",
+					close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+				},
+				virtual_text = false,
+				update_in_insert = true,
+			})
+		end,
+	},
 	"simrat39/rust-tools.nvim",
 	"RRethy/vim-illuminate",
 
