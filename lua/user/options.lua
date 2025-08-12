@@ -3,7 +3,7 @@ vim.opt.autowrite = true -- Auto-write the file when the buffer changes
 vim.opt.cursorline = true -- Highlight the current line
 vim.opt.fileformat = "unix" -- Unix line endings
 vim.opt.undofile = true -- Persistent undo
-vim.opt.completeopt = { "menuone", "noselect", "noinsert" } -- Better completion menu
+vim.opt.completeopt = { "noselect", "noinsert", "popup" } -- Better completion menu
 vim.opt.shortmess = vim.opt.shortmess + { c = true }
 vim.opt.foldlevel = 2
 vim.o.scrollback = 100000

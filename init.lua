@@ -3,16 +3,31 @@
 require("user.options")
 
 -- The plugin manager (Lazy.nvim).
-require("user.lazy")
+require("config.lazy")
 
--- Extra configuration for the plugins.
-require("user.keymappings")
-require("user.colorscheme")
-require("user.telescope")
-require("user.formatter")
-require("user.lualine")
-require("user.perforce")
-require("user.lsp")
-require("user.syntax")
-require("user.completion")
-require("user.treesitter")
+-- The key mappings.
+require("config.mappings")
+
+-- The status line.
+require("config.lualine")
+
+-- The colorscheme.
+require("config.colorscheme")
+
+-- The autocommands.
+require("config.autocommands")
+
+-- Completion.
+require("config.completion")
+
+-- Syntax highlighting.
+require("config.syntax")
+
+-- Formatting.
+require("config.formatting")
+
+-- Perforce integration.
+require("config.perforce")
+
+-- LSP.
+require("config.lsp")

@@ -1,4 +1,5 @@
 return {
+	-- Manage external tooling like LSP servers, linters, and formatters.
 	{
 		"williamboman/mason.nvim",
 		config = function()
@@ -10,6 +11,7 @@ return {
 		end,
 	},
 
+	-- Bridge mason with the lspconfig plugin.
 	{
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
@@ -25,24 +27,10 @@ return {
 		end,
 	},
 
-	{
-		"neovim/nvim-lspconfig",
-		config = function()
-			vim.diagnostic.config({
-				float = {
-					focusable = false,
-					border = "rounded",
-					source = "always",
-					header = "",
-					prefix = "",
-					close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-				},
-				virtual_text = false,
-				update_in_insert = true,
-			})
-		end,
-	},
-	"simrat39/rust-tools.nvim",
+	-- LSP configurations.
+	"neovim/nvim-lspconfig",
+
+	-- Auto highlight other uses of the word under the cursor.
 	"RRethy/vim-illuminate",
 
 	-- Completion framework
@@ -51,7 +39,7 @@ return {
 	-- LSP completion source
 	"hrsh7th/cmp-nvim-lsp",
 
-	-- Useful completion sources:
+	-- Other useful completion sources.
 	"hrsh7th/cmp-nvim-lua",
 	"hrsh7th/cmp-nvim-lsp-signature-help",
 	"hrsh7th/cmp-vsnip",
@@ -59,7 +47,7 @@ return {
 	"hrsh7th/cmp-buffer",
 	"hrsh7th/vim-vsnip",
 
-	-- Trouble
+	-- Trouble.
 	{
 		"folke/trouble.nvim",
 		version = "v3.6.0",
@@ -72,6 +60,8 @@ return {
 			})
 		end,
 	},
+
+	-- TODO comments.
 	{
 		"folke/todo-comments.nvim",
 		requires = "nvim-lua/plenary.nvim",
