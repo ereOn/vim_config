@@ -18,6 +18,24 @@ require("conform").setup({
 		html = { "prettierd", "prettier" },
 		css = { "prettierd", "prettier" },
 		scss = { "prettierd", "prettier" },
+		-- Make sure to install prettier-plugin-jinja-template
+		-- npm install --save-dev prettier prettier-plugin-jinja-template
+		--
+		-- And to add a .prettierrc file with the following content:
+		--
+		-- {
+		--   "plugins": [
+		--     "prettier-plugin-jinja-template"
+		--   ],
+		--   "overrides": [
+		--     {
+		--       "files": "*.html.jinja",
+		--       "options": {
+		--         "parser": "jinja-template"
+		--       }
+		--     }
+		--   ]
+		-- }
 		htmldjango = { "prettierd", "prettier" },
 		javascriptreact = { "prettierd", "prettier" },
 		typescript = { "prettierd", "prettier" },
