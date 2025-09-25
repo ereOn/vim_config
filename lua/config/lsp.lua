@@ -2,10 +2,10 @@
 local on_attach = function(client, bufnr)
 	if client.server_capabilities.documentHighlightProvider then
 		vim.cmd([[
-					  hi! LspReferenceRead cterm=bold ctermbg=235 guibg=LightYellow
-					  hi! LspReferenceText cterm=bold ctermbg=235 guibg=LightYellow
-					  hi! LspReferenceWrite cterm=bold ctermbg=235 guibg=LightYellow
-					]])
+			hi! LspReferenceRead cterm=bold ctermbg=235 guibg=LightYellow
+			hi! LspReferenceText cterm=bold ctermbg=235 guibg=LightYellow
+			hi! LspReferenceWrite cterm=bold ctermbg=235 guibg=LightYellow
+		]])
 		vim.api.nvim_create_augroup("lsp_document_highlight", {})
 		vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 			group = "lsp_document_highlight",
@@ -62,31 +62,21 @@ local on_attach = function(client, bufnr)
 end
 
 --- Rust tools
-local rt = require("rust-tools")
-
-rt.setup({
+vim.g.rustaceanvim = {
+	-- Plugin configuration
+	tools = {},
+	-- LSP configuration
 	server = {
 		on_attach = function(client, bufnr)
-			-- Hover actions
-			vim.keymap.set(
-				"n",
-				"<C-space>",
-				rt.hover_actions.hover_actions,
-				{ buffer = bufnr },
-				{ desc = "Hover actions" }
-			)
 			-- Code action groups
-			vim.keymap.set(
-				"n",
-				"<Leader>a",
-				rt.code_action_group.code_action_group,
-				{ buffer = bufnr },
-				{ desc = "Code action group" }
-			)
+			vim.keymap.set("n", "<Leader>a", function()
+				vim.cmd.RustLsp("codeAction")
+			end, { buffer = bufnr }, { desc = "Code action group" })
 
 			on_attach(client, bufnr)
 		end,
-		settings = {
+		default_settings = {
+			-- rust-analyzer language server configuration
 			["rust-analyzer"] = {
 				checkOnSave = true,
 				check = {
@@ -98,11 +88,12 @@ rt.setup({
 			},
 		},
 	},
-})
+	-- DAP configuration
+	dap = {},
+}
 
 --- Python tools
-local lspconfig = require("lspconfig")
-lspconfig.pyright.setup({
+vim.lsp.config("pyright", {
 	on_attach = on_attach,
 })
 

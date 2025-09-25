@@ -8,7 +8,9 @@ require("conform").setup({
 		-- Python.
 		python = { "isort", "black" },
 		-- Rust.
-		rust = { "rustfmt" },
+		rust = { rustfmt = { options = {
+			default_edition = "2024",
+		} }, lsp_format = "fallback" },
 		-- Conform will run the first available formatter
 		javascript = { "prettierd", "prettier", stop_after_first = true },
 		-- JSON uses jq.
