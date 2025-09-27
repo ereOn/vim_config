@@ -26,4 +26,10 @@ for _, event in ipairs(events) do
 			vim.opt_local.filetype = "htmldjango"
 		end,
 	})
+	vim.api.nvim_create_autocmd({ event }, {
+		pattern = { "*.js.jinja", "*.js.jinja2" },
+		callback = function()
+			vim.opt_local.filetype = "js"
+		end,
+	})
 end
