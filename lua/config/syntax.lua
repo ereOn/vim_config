@@ -1,3 +1,8 @@
+local profile = require("user.profile")
+if not profile.treesitter_enabled() then
+	return
+end
+
 require("nvim-treesitter.configs").setup({
 	ensure_installed = { "lua", "rust", "toml", "json", "yaml", "markdown", "markdown_inline", "html" },
 	auto_install = true,

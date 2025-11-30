@@ -9,9 +9,11 @@ nvim/
 ├── init.lua                    # Entry point - loads all config modules
 ├── ginit.vim                   # GUI settings (Neovide)
 ├── lazy-lock.json              # Plugin version lockfile
+├── README.md                   # User documentation
 └── lua/
     ├── user/
-    │   └── options.lua         # Core vim options (leader keys, UI settings)
+    │   ├── options.lua         # Core vim options (leader keys, UI settings)
+    │   └── profile.lua         # Profile-based conditional plugin loading
     ├── config/
     │   ├── lazy.lua            # lazy.nvim bootstrap
     │   ├── mappings.lua        # Global keymaps
@@ -226,6 +228,47 @@ The load sequence in `init.lua` is intentional:
 2. `config.lazy` - Bootstrap plugin manager
 3. Other configs in dependency order
 
+## Profile System
+
+The config supports conditional plugin loading via `NEOVIM_PROFILE` environment variable.
+
+### Profiles
+
+- `full` - All plugins enabled
+- `minimal` - Core editing only (default when unset)
+- `no-rust` - LSP/treesitter/copilot but no Rust plugins
+
+### Categories
+
+- `lsp` - Mason, lspconfig, nvim-cmp, Trouble
+- `treesitter` - nvim-treesitter, rainbow-delimiters
+- `rust` - rustaceanvim, crates.nvim
+- `copilot` - copilot.vim, CopilotChat
+- `formatting` - conform.nvim
+
+### Making Plugins Profile-Aware
+
+```lua
+local profile = require("user.profile")
+
+return {
+  {
+    "some/plugin",
+    cond = profile.lsp_enabled,  -- or treesitter_enabled, rust_enabled, etc.
+  },
+}
+```
+
+### Config File Guards
+
+For config files that depend on plugins:
+
+```lua
+local profile = require("user.profile")
+if not profile.lsp_enabled() then return end
+-- rest of config
+```
+
 ## Important Conventions
 
 1. **Format-on-save** is default for all configured filetypes
@@ -236,6 +279,7 @@ The load sequence in `init.lua` is intentional:
 6. **Mason** manages external tool installation
 7. **Rust uses rustaceanvim** (not rust-tools) with clippy on save
 8. **Copilot Chat** uses Claude Sonnet 4 model
+9. **Profile system** allows conditional loading - use `cond = profile.<category>_enabled` in plugin specs
 
 ## GitHub Backup
 
@@ -249,3 +293,14 @@ git push
 ```
 
 Or use `<leader>cfg` to pull latest changes from the repo.
+
+## Documentation Maintenance
+
+**IMPORTANT**: When making significant changes to this configuration, update `README.md` to reflect:
+- New keybindings
+- New plugins or removed plugins
+- Changes to the profile system
+- New commands or features
+- Changes to directory structure
+
+The README is the user-facing documentation. Keep it accurate and up-to-date.

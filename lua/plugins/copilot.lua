@@ -1,9 +1,13 @@
+local profile = require("user.profile")
+
 return {
 	{
 		"github/copilot.vim",
+		cond = profile.copilot_enabled,
 	},
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
+		cond = profile.copilot_enabled,
 		dependencies = {
 			{ "github/copilot.vim" },
 			{ "nvim-lua/plenary.nvim", branch = "master" },

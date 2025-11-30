@@ -1,3 +1,8 @@
+local profile = require("user.profile")
+if not profile.lsp_enabled() then
+	return
+end
+
 local cmp = require("cmp")
 
 cmp.setup({

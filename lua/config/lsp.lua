@@ -1,4 +1,9 @@
 --- Generic LSP configuration
+local profile = require("user.profile")
+
+if not profile.lsp_enabled() then
+	return
+end
 
 -- Filter noisy rust-analyzer messages
 local original_notify = vim.notify
@@ -71,36 +76,38 @@ local on_attach = function(client, bufnr)
 	require("illuminate").on_attach(client)
 end
 
---- Rust tools
-vim.g.rustaceanvim = {
-	-- Plugin configuration
-	tools = {},
-	-- LSP configuration
-	server = {
-		on_attach = function(client, bufnr)
-			-- Code action groups
-			vim.keymap.set("n", "<Leader>a", function()
-				vim.cmd.RustLsp("codeAction")
-			end, { buffer = bufnr }, { desc = "Code action group" })
+--- Rust tools (only if rust profile enabled)
+if profile.rust_enabled() then
+	vim.g.rustaceanvim = {
+		-- Plugin configuration
+		tools = {},
+		-- LSP configuration
+		server = {
+			on_attach = function(client, bufnr)
+				-- Code action groups
+				vim.keymap.set("n", "<Leader>a", function()
+					vim.cmd.RustLsp("codeAction")
+				end, { buffer = bufnr }, { desc = "Code action group" })
 
-			on_attach(client, bufnr)
-		end,
-		default_settings = {
-			-- rust-analyzer language server configuration
-			["rust-analyzer"] = {
-				checkOnSave = true,
-				check = {
-					command = "clippy",
-				},
-				cargo = {
-					features = "all",
+				on_attach(client, bufnr)
+			end,
+			default_settings = {
+				-- rust-analyzer language server configuration
+				["rust-analyzer"] = {
+					checkOnSave = true,
+					check = {
+						command = "clippy",
+					},
+					cargo = {
+						features = "all",
+					},
 				},
 			},
 		},
-	},
-	-- DAP configuration
-	dap = {},
-}
+		-- DAP configuration
+		dap = {},
+	}
+end
 
 --- Python tools
 vim.lsp.config("pyright", {

@@ -11,8 +11,15 @@ vim.o.scrolloff = 10
 
 vim.wo.colorcolumn = "80,120" -- Column rulers
 vim.wo.number = true -- Show line numbers
-vim.wo.foldmethod = "expr" -- Fold on expressions
-vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
+
+-- Folding: use treesitter if available, fallback to indent
+local profile = require("user.profile")
+if profile.treesitter_enabled() then
+	vim.wo.foldmethod = "expr"
+	vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
+else
+	vim.wo.foldmethod = "indent"
+end
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = ";"

@@ -1,14 +1,17 @@
+local profile = require("user.profile")
+
 return {
 	-- Terraform
 	"hashivim/vim-terraform",
 
-	-- YAML
+	-- YAML (depends on treesitter)
 	{
 		"cuducos/yaml.nvim",
-		ft = { "yaml" }, -- optional
+		ft = { "yaml" },
+		cond = profile.treesitter_enabled,
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
-			"nvim-telescope/telescope.nvim", -- optional
+			"nvim-telescope/telescope.nvim",
 		},
 	},
 
@@ -25,6 +28,6 @@ return {
 	"godlygeek/tabular",
 	"preservim/vim-markdown",
 
-	-- Justfile
-	"IndianBoy42/tree-sitter-just",
+	-- Justfile (depends on treesitter)
+	{ "IndianBoy42/tree-sitter-just", cond = profile.treesitter_enabled },
 }

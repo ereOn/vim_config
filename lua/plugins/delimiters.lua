@@ -1,5 +1,10 @@
+local profile = require("user.profile")
+
 return {
-	"hiphish/rainbow-delimiters.nvim",
+	-- Rainbow delimiters (depends on treesitter)
+	{ "hiphish/rainbow-delimiters.nvim", cond = profile.treesitter_enabled },
+
+	-- Autopairs (always enabled)
 	{
 		"windwp/nvim-autopairs",
 		config = function()
