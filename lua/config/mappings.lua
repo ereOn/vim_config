@@ -3,8 +3,8 @@ vim.keymap.set("n", "<leader>f", require("telescope.builtin").fd, { desc = "Fuzz
 vim.keymap.set("n", "<leader>b", require("telescope.builtin").buffers, { desc = "Fuzzy search buffers" })
 vim.keymap.set("n", "<leader>l", require("telescope.builtin").treesitter, { desc = "Fuzzy search symbols" })
 
--- Neotree
-vim.keymap.set("n", "<leader>t", "<cmd>Neotree toggle<cr>", { desc = "Toggle Neotree" })
+-- Oil file explorer
+vim.keymap.set("n", "<leader>t", "<cmd>Oil --float<cr>", { desc = "Open file explorer" })
 
 -- Trouble
 vim.keymap.set(
