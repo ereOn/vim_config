@@ -1,4 +1,14 @@
 --- Generic LSP configuration
+
+-- Filter noisy rust-analyzer messages
+local original_notify = vim.notify
+vim.notify = function(msg, level, opts)
+	if type(msg) == "string" and msg:match("overly long loop") then
+		return
+	end
+	original_notify(msg, level, opts)
+end
+
 local on_attach = function(client, bufnr)
 	if client.server_capabilities.documentHighlightProvider then
 		vim.cmd([[
