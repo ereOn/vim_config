@@ -1,5 +1,5 @@
 -- Profile-based plugin loading configuration
--- Set NEOVIM_PROFILE env var to: full, minimal, or no-rust
+-- Set NEOVIM_PROFILE env var to: full, minimal, no-rust, or no-ai
 -- Default: minimal (when env var is unset)
 
 local M = {}
@@ -8,6 +8,7 @@ local profiles = {
 	full = { lsp = true, treesitter = true, rust = true, copilot = true, formatting = true },
 	minimal = { lsp = false, treesitter = false, rust = false, copilot = false, formatting = false },
 	["no-rust"] = { lsp = true, treesitter = true, rust = false, copilot = true, formatting = true },
+	["no-ai"] = { lsp = true, treesitter = true, rust = true, copilot = false, formatting = true },
 }
 
 function M.get_profile()
