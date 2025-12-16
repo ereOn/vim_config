@@ -8,7 +8,7 @@ A modern NeoVim configuration using **lazy.nvim** for plugin management, with LS
 - **LSP integration** - Full language server support with Mason for tool management
 - **Treesitter** - Advanced syntax highlighting and code folding
 - **Fuzzy finding** - Telescope for files, buffers, and symbols
-- **AI assistance** - GitHub Copilot with Claude Sonnet 4 model
+- **AI assistance** - GitHub Copilot or local Ollama via llm.nvim (mutually exclusive)
 - **Format on save** - Automatic formatting with conform.nvim
 - **Rust tooling** - rustaceanvim with clippy integration
 
@@ -30,15 +30,23 @@ The configuration supports different profiles via the `NEOVIM_PROFILE` environme
 
 | Profile | Description |
 |---------|-------------|
-| `full` | All plugins enabled (main dev machine) |
+| `full` | All plugins enabled with GitHub Copilot (main dev machine) |
 | `minimal` | Core editing only, no heavy tooling (default) |
 | `no-rust` | Full LSP support but skip Rust-specific plugins |
+| `no-ai` | Full development support without any AI assistance |
+| `llm` | Local Ollama/Mistral instead of Copilot |
 
 ### Usage
 
 ```bash
-# Full profile (all plugins)
+# Full profile (all plugins with Copilot)
 NEOVIM_PROFILE=full nvim
+
+# Local LLM profile (Ollama/Mistral instead of Copilot)
+NEOVIM_PROFILE=llm nvim
+
+# No AI profile (full tooling, no AI)
+NEOVIM_PROFILE=no-ai nvim
 
 # No rust profile (LSP but no Rust tooling)
 NEOVIM_PROFILE=no-rust nvim
@@ -58,17 +66,20 @@ Add to your `.bashrc` or `.zshrc`:
 alias nvim-full='NEOVIM_PROFILE=full nvim'
 alias nvim-min='NEOVIM_PROFILE=minimal nvim'
 alias nvim-norust='NEOVIM_PROFILE=no-rust nvim'
+alias nvim-llm='NEOVIM_PROFILE=llm nvim'
+alias nvim-noai='NEOVIM_PROFILE=no-ai nvim'
 ```
 
 ### What Each Profile Enables
 
-| Category | full | minimal | no-rust |
-|----------|------|---------|---------|
-| LSP/Completion | Yes | No | Yes |
-| Treesitter | Yes | No | Yes |
-| Rust (rustaceanvim) | Yes | No | No |
-| Copilot | Yes | No | Yes |
-| Formatting | Yes | No | Yes |
+| Category | full | minimal | no-rust | no-ai | llm |
+|----------|------|---------|---------|-------|-----|
+| LSP/Completion | Yes | No | Yes | Yes | Yes |
+| Treesitter | Yes | No | Yes | Yes | Yes |
+| Rust (rustaceanvim) | Yes | No | No | Yes | Yes |
+| Copilot | Yes | No | Yes | No | No |
+| llm.nvim (Ollama) | No | No | No | No | Yes |
+| Formatting | Yes | No | Yes | Yes | Yes |
 
 ## Keybindings
 
@@ -91,6 +102,8 @@ alias nvim-norust='NEOVIM_PROFILE=no-rust nvim'
 | `<leader>cc` | Open Copilot Chat | copilot |
 | `<leader>ce` | Explain selection (visual) | copilot |
 | `<leader>ct` | Generate tests | copilot |
+| `<Tab>` | Accept LLM suggestion | llm |
+| `<S-Tab>` | Dismiss LLM suggestion | llm |
 | `<leader>cfg` | Pull latest config from git | - |
 
 ### LSP Keymaps (Buffer-Local)
@@ -140,6 +153,7 @@ nvim/
         ├── telescope.lua       # Fuzzy finder
         ├── rust.lua            # rustaceanvim, crates.nvim
         ├── copilot.lua         # GitHub Copilot + CopilotChat
+        ├── llm.lua             # Local Ollama via llm.nvim
         ├── formatting.lua      # conform.nvim
         ├── treesitter.lua      # Syntax highlighting
         └── ...                 # Other plugins
@@ -247,6 +261,7 @@ git push
 - Git
 - A Nerd Font (for icons)
 - For full profile: Node.js, Python, Rust toolchain
+- For llm profile: Ollama running locally (`ollama serve` with `ollama pull mistral`)
 
 ## License
 

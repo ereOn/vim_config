@@ -31,6 +31,7 @@ nvim/
         ├── neo-tree.lua        # File explorer
         ├── rust.lua            # rustaceanvim, crates.nvim
         ├── copilot.lua         # GitHub Copilot + CopilotChat
+        ├── llm.lua             # Local Ollama via llm.nvim
         ├── formatting.lua      # conform.nvim plugin spec
         └── ...                 # Other plugin files
 ```
@@ -234,16 +235,19 @@ The config supports conditional plugin loading via `NEOVIM_PROFILE` environment 
 
 ### Profiles
 
-- `full` - All plugins enabled
+- `full` - All plugins enabled with Copilot
 - `minimal` - Core editing only (default when unset)
 - `no-rust` - LSP/treesitter/copilot but no Rust plugins
+- `no-ai` - Full development support, no AI
+- `llm` - Local Ollama/Mistral instead of Copilot
 
 ### Categories
 
 - `lsp` - Mason, lspconfig, nvim-cmp, Trouble
 - `treesitter` - nvim-treesitter, rainbow-delimiters
 - `rust` - rustaceanvim, crates.nvim
-- `copilot` - copilot.vim, CopilotChat
+- `copilot` - copilot.vim, CopilotChat (mutually exclusive with llm)
+- `llm` - huggingface/llm.nvim for local Ollama (mutually exclusive with copilot)
 - `formatting` - conform.nvim
 
 ### Making Plugins Profile-Aware
@@ -280,6 +284,7 @@ if not profile.lsp_enabled() then return end
 7. **Rust uses rustaceanvim** (not rust-tools) with clippy on save
 8. **Copilot Chat** uses Claude Sonnet 4 model
 9. **Profile system** allows conditional loading - use `cond = profile.<category>_enabled` in plugin specs
+10. **Copilot and llm.nvim are mutually exclusive** - only one AI completion provider at a time
 
 ## GitHub Backup
 

@@ -1,14 +1,15 @@
 -- Profile-based plugin loading configuration
--- Set NEOVIM_PROFILE env var to: full, minimal, no-rust, or no-ai
+-- Set NEOVIM_PROFILE env var to: full, minimal, no-rust, no-ai, or llm
 -- Default: minimal (when env var is unset)
 
 local M = {}
 
 local profiles = {
-	full = { lsp = true, treesitter = true, rust = true, copilot = true, formatting = true },
-	minimal = { lsp = false, treesitter = false, rust = false, copilot = false, formatting = false },
-	["no-rust"] = { lsp = true, treesitter = true, rust = false, copilot = true, formatting = true },
-	["no-ai"] = { lsp = true, treesitter = true, rust = true, copilot = false, formatting = true },
+	full = { lsp = true, treesitter = true, rust = true, copilot = true, llm = false, formatting = true },
+	minimal = { lsp = false, treesitter = false, rust = false, copilot = false, llm = false, formatting = false },
+	["no-rust"] = { lsp = true, treesitter = true, rust = false, copilot = true, llm = false, formatting = true },
+	["no-ai"] = { lsp = true, treesitter = true, rust = true, copilot = false, llm = false, formatting = true },
+	llm = { lsp = true, treesitter = true, rust = true, copilot = false, llm = true, formatting = true },
 }
 
 function M.get_profile()
@@ -43,6 +44,10 @@ end
 
 function M.formatting_enabled()
 	return M.has("formatting")
+end
+
+function M.llm_enabled()
+	return M.has("llm")
 end
 
 -- Debug command
