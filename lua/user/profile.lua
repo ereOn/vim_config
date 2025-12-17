@@ -1,31 +1,103 @@
--- Profile-based plugin loading configuration
--- Set NEOVIM_PROFILE env var to: full, minimal, no-rust, no-ai, or llm
--- Default: minimal (when env var is unset)
+-- Feature-based plugin loading configuration
+-- Set NEOVIM_FEATURES env var to space-separated feature list
+-- Example: NEOVIM_FEATURES="lsp treesitter rust copilot formatting"
+-- Available features: lsp, treesitter, rust, copilot, llm, formatting
+-- Default (when unset): treesitter formatting
 
 local M = {}
 
-local profiles = {
-	full = { lsp = true, treesitter = true, rust = true, copilot = true, llm = false, formatting = true },
-	minimal = { lsp = false, treesitter = false, rust = false, copilot = false, llm = false, formatting = false },
-	["no-rust"] = { lsp = true, treesitter = true, rust = false, copilot = true, llm = false, formatting = true },
-	["no-ai"] = { lsp = true, treesitter = true, rust = true, copilot = false, llm = false, formatting = true },
-	llm = { lsp = true, treesitter = true, rust = true, copilot = false, llm = true, formatting = true },
+-- Define available features
+local available_features = {
+	"lsp",
+	"treesitter",
+	"rust",
+	"copilot",
+	"llm",
+	"formatting",
 }
 
-function M.get_profile()
-	local profile = os.getenv("NEOVIM_PROFILE")
-	return (profile and profiles[profile]) and profile or "minimal"
-end
+-- Default features when env var is unset
+local default_features = { "treesitter", "formatting" }
 
-function M.has(category)
-	local config = profiles[M.get_profile()]
-	if config and config[category] ~= nil then
-		return config[category]
+-- Incompatible feature pairs (each pair is mutually exclusive)
+local incompatible_pairs = {
+	{ "copilot", "llm" },
+}
+
+-- Parse the features from environment variable
+local function parse_features()
+	local env_value = os.getenv("NEOVIM_FEATURES")
+
+	-- If unset, return defaults
+	if not env_value or env_value == "" then
+		return default_features
 	end
-	return true -- Default to enabled for unknown categories
+
+	-- Split by whitespace
+	local features = {}
+	for feature in env_value:gmatch("%S+") do
+		table.insert(features, feature)
+	end
+
+	return features
 end
 
--- Convenience functions for lazy.nvim cond
+-- Validate features and check for incompatibilities
+local function validate_features(features)
+	-- Create a set for O(1) lookup
+	local feature_set = {}
+	for _, f in ipairs(features) do
+		feature_set[f] = true
+	end
+
+	-- Check for unknown features (warning only, don't fail)
+	local valid_set = {}
+	for _, f in ipairs(available_features) do
+		valid_set[f] = true
+	end
+	for _, f in ipairs(features) do
+		if not valid_set[f] then
+			vim.api.nvim_err_writeln("Warning: Unknown feature '" .. f .. "' in NEOVIM_FEATURES")
+		end
+	end
+
+	-- Check for incompatible features (fatal error)
+	for _, pair in ipairs(incompatible_pairs) do
+		if feature_set[pair[1]] and feature_set[pair[2]] then
+			vim.api.nvim_err_writeln(
+				"Error: Incompatible features specified: '"
+					.. pair[1]
+					.. "' and '"
+					.. pair[2]
+					.. "' cannot be enabled together"
+			)
+			vim.api.nvim_err_writeln("Please modify NEOVIM_FEATURES and restart NeoVim")
+			vim.cmd("cquit 1")
+		end
+	end
+
+	return feature_set
+end
+
+-- Parse and validate on module load
+local enabled_features = validate_features(parse_features())
+
+-- Check if a feature is enabled
+function M.has(feature)
+	return enabled_features[feature] == true
+end
+
+-- Get list of enabled features (for debugging)
+function M.get_enabled_features()
+	local result = {}
+	for feature, _ in pairs(enabled_features) do
+		table.insert(result, feature)
+	end
+	table.sort(result)
+	return result
+end
+
+-- Convenience functions for lazy.nvim cond (maintain existing API)
 function M.lsp_enabled()
 	return M.has("lsp")
 end
@@ -51,13 +123,15 @@ function M.llm_enabled()
 end
 
 -- Debug command
-vim.api.nvim_create_user_command("ProfileStatus", function()
-	local profile = M.get_profile()
-	print("NeoVim Profile: " .. profile)
-	print("Categories:")
-	for cat, enabled in pairs(profiles[profile]) do
-		print("  " .. cat .. ": " .. tostring(enabled))
+vim.api.nvim_create_user_command("FeatureStatus", function()
+	local env_value = os.getenv("NEOVIM_FEATURES") or "(unset - using defaults)"
+	print("NEOVIM_FEATURES: " .. env_value)
+	print("")
+	print("Enabled features:")
+	for _, feature in ipairs(available_features) do
+		local status = M.has(feature) and "enabled" or "disabled"
+		print("  " .. feature .. ": " .. status)
 	end
-end, { desc = "Show current NeoVim profile status" })
+end, { desc = "Show enabled NeoVim features" })
 
 return M

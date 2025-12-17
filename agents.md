@@ -13,7 +13,7 @@ nvim/
 └── lua/
     ├── user/
     │   ├── options.lua         # Core vim options (leader keys, UI settings)
-    │   └── profile.lua         # Profile-based conditional plugin loading
+    │   └── profile.lua         # Feature-based conditional plugin loading
     ├── config/
     │   ├── lazy.lua            # lazy.nvim bootstrap
     │   ├── mappings.lua        # Global keymaps
@@ -229,28 +229,43 @@ The load sequence in `init.lua` is intentional:
 2. `config.lazy` - Bootstrap plugin manager
 3. Other configs in dependency order
 
-## Profile System
+## Feature System
 
-The config supports conditional plugin loading via `NEOVIM_PROFILE` environment variable.
+The config supports conditional plugin loading via `NEOVIM_FEATURES` environment variable.
 
-### Profiles
-
-- `full` - All plugins enabled with Copilot
-- `minimal` - Core editing only (default when unset)
-- `no-rust` - LSP/treesitter/copilot but no Rust plugins
-- `no-ai` - Full development support, no AI
-- `llm` - Local Ollama/Mistral instead of Copilot
-
-### Categories
+### Available Features
 
 - `lsp` - Mason, lspconfig, nvim-cmp, Trouble
 - `treesitter` - nvim-treesitter, rainbow-delimiters
 - `rust` - rustaceanvim, crates.nvim
 - `copilot` - copilot.vim, CopilotChat (mutually exclusive with llm)
-- `llm` - huggingface/llm.nvim for local Ollama (mutually exclusive with copilot)
+- `llm` - minuet-ai.nvim for local Ollama (mutually exclusive with copilot)
 - `formatting` - conform.nvim
 
-### Making Plugins Profile-Aware
+### Usage
+
+Set `NEOVIM_FEATURES` to a space-separated list of features:
+
+```bash
+# Full development setup with Copilot
+export NEOVIM_FEATURES="lsp treesitter rust copilot formatting"
+
+# Full development setup with local LLM
+export NEOVIM_FEATURES="lsp treesitter rust llm formatting"
+
+# LSP without AI assistance
+export NEOVIM_FEATURES="lsp treesitter rust formatting"
+```
+
+### Default Features
+
+When `NEOVIM_FEATURES` is unset: `treesitter formatting`
+
+### Incompatible Features
+
+- `copilot` and `llm` cannot be enabled together (NeoVim will error and exit)
+
+### Making Plugins Feature-Aware
 
 ```lua
 local profile = require("user.profile")
@@ -273,6 +288,10 @@ if not profile.lsp_enabled() then return end
 -- rest of config
 ```
 
+### Debugging
+
+Use `:FeatureStatus` command to see current feature configuration.
+
 ## Important Conventions
 
 1. **Format-on-save** is default for all configured filetypes
@@ -283,7 +302,7 @@ if not profile.lsp_enabled() then return end
 6. **Mason** manages external tool installation
 7. **Rust uses rustaceanvim** (not rust-tools) with clippy on save
 8. **Copilot Chat** uses Claude Sonnet 4 model
-9. **Profile system** allows conditional loading - use `cond = profile.<category>_enabled` in plugin specs
+9. **Feature system** allows conditional loading via `NEOVIM_FEATURES` env var - use `cond = profile.<feature>_enabled` in plugin specs
 10. **Copilot and llm.nvim are mutually exclusive** - only one AI completion provider at a time
 
 ## GitHub Backup

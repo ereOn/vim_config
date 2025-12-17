@@ -4,7 +4,7 @@ A modern NeoVim configuration using **lazy.nvim** for plugin management, with LS
 
 ## Features
 
-- **Profile-based loading** - Conditionally load plugins based on machine capabilities
+- **Feature-based loading** - Conditionally load plugins based on enabled features
 - **LSP integration** - Full language server support with Mason for tool management
 - **Treesitter** - Advanced syntax highlighting and code folding
 - **Fuzzy finding** - Telescope for files, buffers, and symbols
@@ -22,64 +22,58 @@ git clone <repo-url> ~/.config/nvim
 nvim
 ```
 
-## Profile System
+## Feature System
 
-The configuration supports different profiles via the `NEOVIM_PROFILE` environment variable, allowing the same config to work on machines with varying capabilities.
+The configuration supports opt-in features via the `NEOVIM_FEATURES` environment variable, allowing you to enable exactly the plugins you need.
 
-### Available Profiles
+### Available Features
 
-| Profile | Description |
+| Feature | Description |
 |---------|-------------|
-| `full` | All plugins enabled with GitHub Copilot (main dev machine) |
-| `minimal` | Core editing only, no heavy tooling (default) |
-| `no-rust` | Full LSP support but skip Rust-specific plugins |
-| `no-ai` | Full development support without any AI assistance |
-| `llm` | Local Ollama/Mistral instead of Copilot |
+| `lsp` | Mason, lspconfig, nvim-cmp, Trouble |
+| `treesitter` | Syntax highlighting, folding, rainbow-delimiters |
+| `rust` | rustaceanvim, crates.nvim |
+| `copilot` | GitHub Copilot + CopilotChat |
+| `llm` | Local Ollama/Mistral via minuet-ai.nvim |
+| `formatting` | conform.nvim auto-formatting |
 
 ### Usage
 
 ```bash
-# Full profile (all plugins with Copilot)
-NEOVIM_PROFILE=full nvim
+# Full development with Copilot
+NEOVIM_FEATURES="lsp treesitter rust copilot formatting" nvim
 
-# Local LLM profile (Ollama/Mistral instead of Copilot)
-NEOVIM_PROFILE=llm nvim
+# Full development with local LLM
+NEOVIM_FEATURES="lsp treesitter rust llm formatting" nvim
 
-# No AI profile (full tooling, no AI)
-NEOVIM_PROFILE=no-ai nvim
+# Development without AI
+NEOVIM_FEATURES="lsp treesitter rust formatting" nvim
 
-# No rust profile (LSP but no Rust tooling)
-NEOVIM_PROFILE=no-rust nvim
-
-# Minimal profile (default when unset)
+# Minimal editing (default when unset)
 nvim
 
-# Check current profile inside NeoVim
-:ProfileStatus
+# Check current features inside NeoVim
+:FeatureStatus
 ```
+
+### Default Features
+
+When `NEOVIM_FEATURES` is unset, these features are enabled: `treesitter formatting`
+
+### Incompatible Features
+
+- `copilot` and `llm` cannot be enabled together (NeoVim will error and exit)
 
 ### Shell Aliases (Optional)
 
 Add to your `.bashrc` or `.zshrc`:
 
 ```bash
-alias nvim-full='NEOVIM_PROFILE=full nvim'
-alias nvim-min='NEOVIM_PROFILE=minimal nvim'
-alias nvim-norust='NEOVIM_PROFILE=no-rust nvim'
-alias nvim-llm='NEOVIM_PROFILE=llm nvim'
-alias nvim-noai='NEOVIM_PROFILE=no-ai nvim'
+alias nvim-full='NEOVIM_FEATURES="lsp treesitter rust copilot formatting" nvim'
+alias nvim-llm='NEOVIM_FEATURES="lsp treesitter rust llm formatting" nvim'
+alias nvim-noai='NEOVIM_FEATURES="lsp treesitter rust formatting" nvim'
+alias nvim-min='NEOVIM_FEATURES="" nvim'
 ```
-
-### What Each Profile Enables
-
-| Category | full | minimal | no-rust | no-ai | llm |
-|----------|------|---------|---------|-------|-----|
-| LSP/Completion | Yes | No | Yes | Yes | Yes |
-| Treesitter | Yes | No | Yes | Yes | Yes |
-| Rust (rustaceanvim) | Yes | No | No | Yes | Yes |
-| Copilot | Yes | No | Yes | No | No |
-| llm.nvim (Ollama) | No | No | No | No | Yes |
-| Formatting | Yes | No | Yes | Yes | Yes |
 
 ## Keybindings
 
@@ -90,7 +84,7 @@ alias nvim-noai='NEOVIM_PROFILE=no-ai nvim'
 
 ### Global Keymaps
 
-| Key | Action | Profile Required |
+| Key | Action | Feature Required |
 |-----|--------|------------------|
 | `<leader>f` | Find files (Telescope) | - |
 | `<leader>b` | Find buffers (Telescope) | - |
@@ -137,7 +131,7 @@ nvim/
 └── lua/
     ├── user/
     │   ├── options.lua         # Core vim options
-    │   └── profile.lua         # Profile-based plugin loading
+    │   └── profile.lua         # Feature-based plugin loading
     ├── config/
     │   ├── lazy.lua            # lazy.nvim bootstrap
     │   ├── mappings.lua        # Global keymaps
@@ -184,11 +178,11 @@ Format-on-save is enabled by default (500ms timeout).
 | `:Lazy sync` | Sync to lockfile |
 | `:checkhealth` | Diagnose issues |
 
-### Profile & Diagnostics
+### Features & Diagnostics
 
 | Command | Action |
 |---------|--------|
-| `:ProfileStatus` | Show current profile and enabled categories |
+| `:FeatureStatus` | Show current features configuration |
 | `:Mason` | Open Mason UI for LSP/tool management |
 | `:LspInfo` | Show attached LSP servers |
 | `:Telescope` | Open Telescope picker |
@@ -211,9 +205,9 @@ return {
 
 3. Restart NeoVim - lazy.nvim auto-discovers new plugin files
 
-### Profile-Aware Plugins
+### Feature-Aware Plugins
 
-To make a plugin conditional on a profile category:
+To make a plugin conditional on a feature:
 
 ```lua
 local profile = require("user.profile")
@@ -260,8 +254,8 @@ git push
 - NeoVim 0.9+ (0.10+ recommended)
 - Git
 - A Nerd Font (for icons)
-- For full profile: Node.js, Python, Rust toolchain
-- For llm profile: Ollama running locally (`ollama serve` with `ollama pull mistral`)
+- For lsp/rust features: Node.js, Python, Rust toolchain
+- For llm feature: Ollama running locally (`ollama serve` with `ollama pull mistral`)
 
 ## License
 
