@@ -37,11 +37,26 @@ The configuration supports opt-in features via the `NEOVIM_FEATURES` environment
 | `llm` | Local Ollama/Mistral via minuet-ai.nvim |
 | `formatting` | conform.nvim auto-formatting |
 
+### Aliases
+
+| Alias | Expands to |
+|-------|------------|
+| `full` | `lsp treesitter rust copilot formatting` |
+
+### Removal Syntax
+
+Prefix a feature with `-` to remove it:
+
+```bash
+# Full setup without Copilot
+NEOVIM_FEATURES="full -copilot" nvim
+```
+
 ### Usage
 
 ```bash
-# Full development with Copilot
-NEOVIM_FEATURES="lsp treesitter rust copilot formatting" nvim
+# Full development with Copilot (using alias)
+NEOVIM_FEATURES="full" nvim
 
 # Full development with local LLM
 NEOVIM_FEATURES="lsp treesitter rust llm formatting" nvim
@@ -69,7 +84,7 @@ When `NEOVIM_FEATURES` is unset, these features are enabled: `treesitter formatt
 Add to your `.bashrc` or `.zshrc`:
 
 ```bash
-alias nvim-full='NEOVIM_FEATURES="lsp treesitter rust copilot formatting" nvim'
+alias nvim-full='NEOVIM_FEATURES="full" nvim'
 alias nvim-llm='NEOVIM_FEATURES="lsp treesitter rust llm formatting" nvim'
 alias nvim-noai='NEOVIM_FEATURES="lsp treesitter rust formatting" nvim'
 alias nvim-min='NEOVIM_FEATURES="" nvim'

@@ -2,6 +2,8 @@
 -- Set NEOVIM_FEATURES env var to space-separated feature list
 -- Example: NEOVIM_FEATURES="lsp treesitter rust copilot formatting"
 -- Available features: lsp, treesitter, rust, copilot, llm, formatting
+-- Aliases: full (expands to: lsp treesitter rust copilot formatting)
+-- Prefix with - to remove: NEOVIM_FEATURES="full -copilot"
 -- Default (when unset): treesitter formatting
 
 local M = {}
@@ -24,6 +26,11 @@ local incompatible_pairs = {
 	{ "copilot", "llm" },
 }
 
+-- Feature aliases (shorthand for common combinations)
+local feature_aliases = {
+	full = { "lsp", "treesitter", "rust", "copilot", "formatting" },
+}
+
 -- Parse the features from environment variable
 local function parse_features()
 	local env_value = os.getenv("NEOVIM_FEATURES")
@@ -33,10 +40,41 @@ local function parse_features()
 		return default_features
 	end
 
-	-- Split by whitespace
+	-- Split by whitespace and process additions first, then removals
+	local additions = {}
+	local removals = {}
+
+	for token in env_value:gmatch("%S+") do
+		if token:sub(1, 1) == "-" then
+			-- Removal token (e.g., "-copilot")
+			local feature_to_remove = token:sub(2)
+			table.insert(removals, feature_to_remove)
+		else
+			-- Addition token (feature or alias)
+			local alias_expansion = feature_aliases[token]
+			if alias_expansion then
+				for _, feature in ipairs(alias_expansion) do
+					table.insert(additions, feature)
+				end
+			else
+				table.insert(additions, token)
+			end
+		end
+	end
+
+	-- Build final feature set: additions minus removals
 	local features = {}
-	for feature in env_value:gmatch("%S+") do
-		table.insert(features, feature)
+	local seen = {}
+	local removal_set = {}
+	for _, r in ipairs(removals) do
+		removal_set[r] = true
+	end
+
+	for _, feature in ipairs(additions) do
+		if not seen[feature] and not removal_set[feature] then
+			seen[feature] = true
+			table.insert(features, feature)
+		end
 	end
 
 	return features
@@ -131,6 +169,11 @@ vim.api.nvim_create_user_command("FeatureStatus", function()
 	for _, feature in ipairs(available_features) do
 		local status = M.has(feature) and "enabled" or "disabled"
 		print("  " .. feature .. ": " .. status)
+	end
+	print("")
+	print("Available aliases:")
+	for alias, expansion in pairs(feature_aliases) do
+		print("  " .. alias .. " -> " .. table.concat(expansion, " "))
 	end
 end, { desc = "Show enabled NeoVim features" })
 

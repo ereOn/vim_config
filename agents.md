@@ -242,13 +242,26 @@ The config supports conditional plugin loading via `NEOVIM_FEATURES` environment
 - `llm` - minuet-ai.nvim for local Ollama (mutually exclusive with copilot)
 - `formatting` - conform.nvim
 
+### Aliases
+
+- `full` - Expands to: `lsp treesitter rust copilot formatting`
+
+### Removal Syntax
+
+Prefix a feature with `-` to remove it:
+
+```bash
+# Full setup without Copilot
+export NEOVIM_FEATURES="full -copilot"
+```
+
 ### Usage
 
 Set `NEOVIM_FEATURES` to a space-separated list of features:
 
 ```bash
-# Full development setup with Copilot
-export NEOVIM_FEATURES="lsp treesitter rust copilot formatting"
+# Full development setup with Copilot (using alias)
+export NEOVIM_FEATURES="full"
 
 # Full development setup with local LLM
 export NEOVIM_FEATURES="lsp treesitter rust llm formatting"
