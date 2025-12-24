@@ -9,8 +9,8 @@ if profile.treesitter_enabled() then
 	vim.keymap.set("n", "<leader>l", require("telescope.builtin").treesitter, { desc = "Fuzzy search symbols" })
 end
 
--- Oil file explorer (always available)
-vim.keymap.set("n", "<leader>t", "<cmd>Oil --float<cr>", { desc = "Open file explorer" })
+-- Neo-tree file explorer (always available)
+vim.keymap.set("n", "<leader>t", "<cmd>Neotree toggle<cr>", { desc = "Toggle file explorer" })
 
 -- Trouble (only with LSP)
 if profile.lsp_enabled() then
